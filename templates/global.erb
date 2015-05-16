@@ -1,0 +1,46 @@
+<% if !@gateway.empty? then -%>
+GATEWAY=<%= @gateway %>
+<% end -%>
+<% if !@gatewaydev.empty? then -%>
+GATEWAYDEV=<%= @gatewaydev %>
+<% end -%>
+HOSTNAME=<%= @hostname %>
+<% if !@ipv6_defaultdev.empty? then -%>
+IPV6_DEFAULTDEV=<%= @ipv6_defaultdev %>
+<% end -%>
+<% if !@ipv6_defaultgw.empty? then -%>
+IPV6_DEFAULTGW=<%= @ipv6_defaultgw %>
+<% end -%>
+NETWORKING_IPV6=<%= @networking_ipv6 %>
+<% if !@network.empty? then -%>
+NETWORK=<%= @network %>
+<% end -%>
+<% if !@nisdomain.empty? then -%>
+NISDOMAIN=<%= @nisdomain %>
+<% end -%>
+<% if !@nozeroconf.empty? then -%>
+NOZEROCONF=<%= @nozeroconf %>
+<% end -%>
+PEERDNS=<%= @peerdns %>
+NETWORKING=<%= @networking %>
+<% if !@vlan.eql?('no') then -%>
+VLAN=yes
+<% end -%>
+<% if !@networkdelay.empty? then -%>
+NETWORKDELAY=<%= @networkdelay %>
+<% end -%>
+<% if !@ipv6forwarding.eql?('no') then -%>
+IPV6FORWARDING=<%= @ipv6forwarding %>
+<% end -%>
+<% if !@ipv6_autoconf.empty? then -%>
+IPV6_AUTOCONF=<%= @ipv6_autoconf -%>
+<% end -%>
+<% if !@ipv6_router.empty? then -%>
+IPV6_ROUTER=<%= @ipv6_router -%>
+<% end -%>
+<% if !@ipv6_autotunnel.empty? then -%>
+IPV6_AUTOTUNNEL=<%= @ipv6_autotunnel %>
+<% end -%>
+<% if !@persistent_dhclient.empty? then -%>
+PERSISTENT_DHCLIENT='1'
+<% end -%>

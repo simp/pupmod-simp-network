@@ -1,0 +1,310 @@
+<%
+  eth_opts = []
+
+  eth_opts << "BOOTPROTO=#{@bootproto}"
+
+  if not @delay.empty? then
+    eth_opts << "DELAY=#{@delay}"
+  end
+
+  eth_opts << "DEVICE=#{@name}"
+
+  if not @dhcpclass.empty? then
+    eth_opts << "DHCPCLASS=#{@dhcpclass}"
+  end
+  if not @dhcp_hostname.empty? then
+    eth_opts << "DHCP_HOSTNAME=#{@dhcp_hostname}"
+  end
+  if not @gateway.empty? then
+    eth_opts << "GATEWAY=#{@gateway}"
+  end
+
+  if not @macaddr.empty? then
+    eth_opts << "MACADDR=#{@macaddr}"
+  elsif not @hwaddr.empty? then
+    eth_opts << "HWADDR=#{@hwaddr}"
+    eth_opts << "# Puppet not setting HWADDR due to 'hwaddr' having a value of '#{@hwaddr}'"
+  elsif not @auto_discover_mac then
+    # If your net type is not a non-physical interface, as per the list from the official documentation,
+    # then auto discover your MAC/Hardware address.
+    #
+    # Handle virtual interface MAC discovery.
+    lmacaddr = scope.lookupvar("::macaddress_#{@name.split(':')[0]}")
+
+    if lmacaddr.match(/^(00:?)+$/) then
+      raise Puppet::ParseError.new("Found MAC address of all 0's for #{@name}")
+    end
+
+    eth_opts << "HWADDR=#{lmacaddr}"
+  end
+
+  if not @ipaddr.empty? then
+    eth_opts << "IPADDR=#{@ipaddr}"
+  end
+  if not @ipv6addr.empty? then
+    eth_opts << "IPV6ADDR=#{@ipv6addr}"
+  end
+  if not @ipv6_autoconf.empty? then
+    eth_opts << "IPV6_AUTOCONF=#{@ipv6_autoconf}"
+  end
+  if not @ipv6_control_radvd.empty? then
+    eth_opts << "IPV6_CONTROL_RADVD=#{@ipv6_control_radvd}"
+  end
+  if not @ipv6init.empty? then
+    eth_opts << "IPV6INIT=#{@ipv6init}"
+  end
+  if not @ipv6_mtu.empty? then
+    eth_opts << "IPV6_MTU=#{@ipv6_mtu}"
+  end
+  if not @ipv6_privacy.empty? then
+    eth_opts << "IPV6_PRIVACY=#{@ipv6_privacy}"
+  end
+  if not @ipv6_radvd_pidfile.empty? then
+    eth_opts << "IPV6_RADVD_PIDFILE=#{@ipv6_radvd_pidfile}"
+  end
+  if not @ipv6_radvd_trigger_action.empty? then
+    eth_opts << "IPV6_RADVD_TRIGGER_ACTION=#{@ipv6_radvd_trigger_action}"
+  end
+  if not @ipv6_router.empty? then
+    eth_opts << "IPV6_ROUTER=#{@ipv6_router}"
+  end
+  if not @ipv6addr_secondaries.empty? then
+    eth_opts << "IPV6_SECONDARIES=#{@ipv6addr_secondaries}"
+  end
+  if not @ipv6to4init.empty? then
+    eth_opts << "IPV6TO4INIT=#{@ipv6to4init}"
+  end
+  if not @ipv6to4_ipv4addr.empty? then
+    eth_opts << "IPV6TO4_IPV4ADDR=#{@ipv6to4_ipv4addr}"
+  end
+  if not @ipv6to4_mtu.empty? then
+    eth_opts << "IPV6TO4_MTU=#{@ipv6to4_mtu}"
+  end
+  if not @ipv6to4_relay.empty? then
+    eth_opts << "IPV6TO4_RELAY=#{@ipv6to4_relay}"
+  end
+  if not @ipv6to4_routing.empty? then
+    eth_opts << "IPV6TO4_ROUTING=#{@ipv6to4_routing}"
+  end
+  if not @isalias.empty? then
+    eth_opts << "ISALIAS=#{@isalias}"
+  end
+  if not @master.empty? then
+    eth_opts << "MASTER=#{@master}"
+  end
+  if not @mtu.empty? then
+    eth_opts << "MTU=#{@mtu}"
+  end
+  if not @netmask.empty? then
+    eth_opts << "NETMASK=#{@netmask}"
+  end
+  if @name.include?(':') then
+    eth_opts << "ONPARENT=#{@onboot}"
+  else
+    eth_opts << "ONBOOT=#{@onboot}"
+  end
+  if not @peerdns.empty? then
+    eth_opts << "PEERDNS=#{@peerdns}"
+  end
+
+  if @vlan then
+    eth_opts << 'VLAN=yes'
+    if not @vlan_name_type.empty? then
+      eth_opts << "VLAN_NAME_TYPE=#{@vlan_name_type}"
+    end
+  end
+
+  if not @physdev.empty? then
+    eth_opts << "PHYSDEV=#{@physdev}"
+  end
+  if not @dns1.empty? then
+    eth_opts << "DNS1=#{@dns1}"
+  end
+  if not @dns2.empty? then
+    eth_opts << "DNS2=#{@dns2}"
+  end
+  if not @persistent_dhclient.empty? then
+    eth_opts << "PERSISTENT_DHCLIENT=#{@persistent_dhclient}"
+  end
+  if not @slave.empty? then
+    eth_opts << "SLAVE=#{@slave}"
+  end
+  if not @net_type.empty? then
+    eth_opts << "TYPE=#{@net_type}"
+  end
+  if not @userctl.empty? then
+    eth_opts << "USERCTL=#{@userctl}"
+  end
+  if not @metric.empty? then
+    eth_opts << "METRIC=#{@metric}"
+  end
+  if not @hotplug.empty? then
+    eth_opts << "HOTPLUG=#{@hotplug}"
+  end
+  if not @window.empty? then
+    eth_opts << "WINDOW=#{@window}"
+  end
+  if not @srcaddr.empty? then
+    eth_opts << "SRCADDR=#{@srcaddr}"
+  end
+  if not @nozeroconf.empty? then
+    eth_opts << "NOZEROCONF=#{@nozeroconf}"
+  end
+  if not @dhcprelease.empty? then
+    eth_opts << "DHCPRELEASE=#{@dhcprelease}"
+  end
+  if not @dhclient_ignore_gateway.empty? then
+    eth_opts << "DHCLIENT_IGNORE_GATEWAY=#{@dhclient_ignore_gateway}"
+  end
+
+  t_dhclientargs = []
+  if not @dhclient_request_option_list.empty? then
+    t_dhclientargs << "-R #{@dhclient_request_option_list}"
+  end
+
+  if not @dhclient_timeout.empty? then
+    if scope.function_versioncmp([@lsbmajdistrelease,'6']) < 0 then
+      t_dhclientargs << "-T #{@dhclient_timeout}"
+    else
+      t_dhclientargs << "-timeout #{@dhclient_timeout}"
+    end
+  end
+
+  if not @dhclient_vendor_class_identifier.empty? then
+    t_dhclientargs << "-V #{@dhclient_vendor_class_identifier}"
+  end
+  if !t_dhclientargs.empty? then
+    eth_opts << "DHCLIENTARGS='#{t_dhclientargs.join(' ')}'"
+  end
+  if not @ethtool_opts.empty? then
+    eth_opts << "ETHTOOL_OPTS=#{@ethtool_opts}"
+  end
+
+  if not @reorder_hdr.eql?('yes') then
+    eth_opts << 'REORDER_HDR=no'
+  else
+    eth_opts << 'REORDER_HDR=yes'
+  end
+
+  if not @arp.empty? then
+    eth_opts << "ARP=#{@arp}"
+  end
+
+  if not @linkdelay.empty? then
+    eth_opts << "LINKDELAY=#{@linkdelay}"
+  end
+  if not @bridge.empty? then
+    eth_opts << "BRIDGE=#{@bridge}"
+  end
+
+  # Take care of bonding
+  require 'ipaddr'
+
+  t_bonding_options = []
+
+  if not @bond_arp_interval.empty? then
+    if @bond_arp_interval =~ /^\d+$/ then
+      t_bonding_options << "arp_interval=#{@bond_arp_interval}"
+    else
+      raise Puppet::ParseError.new("bond_arp_interval must be an Integer")
+    end
+
+    if ( not @bond_arp_ip_target.empty? ) and ( @bond_arp_interval > 0 ) then
+      begin
+        IPAddr.new(@bond_arp_ip_target)
+      rescue
+        raise Puppet::ParseError.new("bond_arp_ip_target must be a valid IP address")
+      end
+      t_bonding_options << "arp_ip_target=#{@bond_arp_ip_target}"
+    end
+  end
+
+  if not @bond_lacp_rate.empty? then
+    if @bond_lacp_rate =~ /^[01]$/ then
+      t_bonding_options << "#lacp_rate=#{@bond_lacp_rate}"
+    else
+      raise Puppet::ParseError.new("bond_lacp_rate must be either 0 or 1")
+    end
+  end
+
+  if not @bond_max_bonds.empty? then
+    if @bond_max_bonds =~ /^\d+$/ then
+      t_bonding_options << "max_bonds=#{@bond_max_bonds}"
+    else
+      raise Puppet::ParseError.new("bond_max_bonds must be an Integer")
+    end
+  end
+
+  if not @bond_miimon.empty? then
+    if @bond_miimon =~ /^\d+$/ then
+      t_bonding_options << "miimon=#{@bond_miimon}"
+    else
+      raise Puppet::ParseError.new("bond_miimon must be an Integer")
+    end
+
+    # These two are only valid if miimon is being used.
+    if not @bond_downdelay.empty? then
+      if not bond_downdelay =~ /^\d+$/ then
+        t_bonding_options << "downdelay=#{@bond_downdelay}"
+      else
+        raise Puppet::ParseError.new("bond_downdelay must be an Integer")
+      end
+    end
+
+    if not @bond_updelay.empty? then
+      if not @bond_updelay =~ /^\d+$/ then
+        t_bonding_options << "updelay=#{@bond_updelay}"
+      else
+        raise Puppet::ParseError.new("bond_updelay must be an Integer")
+      end
+    end
+  end
+
+  l_valid_modes = [
+    "balance-rr",
+    "0",
+    "active-backup",
+    "1",
+    "balance-xor",
+    "2",
+    "broadcast",
+    "3",
+    "802.3ad",
+    "4",
+    "balance-tlb",
+    "5",
+    "balance-alb",
+    "6" ]
+  if not @bond_mode.empty? then
+    if l_valid_modes.include?(@bond_mode) then
+      t_bonding_options << "mode=#{@bond_mode}"
+    else
+      raise Puppet::ParseError.new("bond_mode must be one of: [#{l_valid_mode.join(' ')}]")
+    end
+
+    if not @bond_primary.empty? and ( @bond_mode.eql?("active-backup") or @bond_mode.eql?("1") ) then
+      t_bonding_options << "primary=#{@bond_primary}"
+    end
+  end
+
+  if not @bond_use_carrier.empty? then
+    if @bond_use_carrier =~ /^[01]$/ then
+      t_bonding_options << "bond_use_carrier=#{@bond_use_carrier}"
+    else
+      raise Puppet::ParseError.new("bond_use_carrier must be either 0 or 1")
+    end
+  end
+
+  if not @bond_xmit_hash_policy.empty? then
+    if @bond_xmit_hash_policy =~ /^layer(2|2\+3|3\+4)$/ then
+      t_bonding_options << "xmit_hash_policy=#{@bond_xmit_hash_policy}"
+    else
+      raise Puppet::ParseError.new("bond_xmit_hash_policy must be either 'layer2', 'layer2+3', or 'layer3+4'")
+    end
+  end
+
+  if !t_bonding_options.empty? then
+    eth_opts << "BONDING_OPTS='#{t_bonding_options.join(' ')}'"
+  end
+-%>
+<%= eth_opts.join("\n") %>
