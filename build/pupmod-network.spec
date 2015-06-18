@@ -13,7 +13,7 @@ Buildarch: noarch
 Requires: simp-bootstrap >= 4.2.0
 Obsoletes: pupmod-network-test
 
-Prefix:"/etc/puppet/environments/simp/modules"
+Prefix: /etc/puppet/environments/simp/modules
 
 %description
 This Puppet module provides the capability to configure host networking.
@@ -42,13 +42,13 @@ mkdir -p %{buildroot}/%{prefix}/network
 
 %files
 %defattr(0640,root,puppet,0750)
-/etc/puppet/environments/simp/modules/network
+%{prefix}/network
 
 %post
 #!/bin/sh
 
-if [ -d /etc/puppet/environments/simp/modules/network/plugins ]; then
-  /bin/mv /etc/puppet/environments/simp/modules/network/plugins /etc/puppet/environments/simp/modules/network/plugins.bak
+if [ -d %{prefix}/network/plugins ]; then
+  /bin/mv %{prefix}/network/plugins %{prefix}/network/plugins.bak
 fi
 
 %postun
@@ -75,7 +75,7 @@ fi
 * Mon Oct 07 2013 Kendall Moore <kmoore@keywcorp.com> - 3.0.0-2
 - Updated all erb templates to properly scope variables.
 
-* Wed Oct 03 2013 Trevor Vaughan <tvaughan@onyxpoint.com> - 3.0.0-1
+* Thu Oct 03 2013 Trevor Vaughan <tvaughan@onyxpoint.com> - 3.0.0-1
 - Use 'versioncmp' for all version comparisons.
 
 * Tue Sep 24 2013 Trevor Vaughan <tvaughan@onyxpoint.com> - 3.0.0-0
