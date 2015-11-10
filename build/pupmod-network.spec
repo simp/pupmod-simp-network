@@ -1,13 +1,14 @@
 Summary: Host Network Puppet Module
 Name: pupmod-network
 Version: 4.1.0
-Release: 4
+Release: 5
 License: Apache License, Version 2.0
 Group: Applications/System
 Source: %{name}-%{version}-%{release}.tar.gz
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires: pupmod-common >= 4.1.0-4
-Requires: pupmod-concat >= 3.4
+Requires: pupmod-simplib >= 1.0.0-0
+Requires: pupmod-simpcat >= 3.4
 Requires: puppet >= 3.3.0
 Buildarch: noarch
 Requires: simp-bootstrap >= 4.2.0
@@ -55,6 +56,9 @@ fi
 # Post uninstall stuff
 
 %changelog
+* Mon Nov 09 2015 Chris Tessmer <chris.tessmer@onypoint.com> - 4.1.0-5
+- migration to simplib and simpcat (lib/ only)
+
 * Fri Mar 06 2015 Chris Tessmer <chris.tessmer@onyxpoint.com> - 4.1.0-4
 - Fixed bug in network::add_eth that trashed bonded nics.
 
