@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'network::add_eth' do
   let(:facts) {{
-    :lsbmajdistrelease => '6'
+    :operatingsystemmajrelease => '6'
   }}
 
   context 'base' do

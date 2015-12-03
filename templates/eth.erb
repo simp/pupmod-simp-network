@@ -163,7 +163,7 @@
   end
 
   if not @dhclient_timeout.empty? then
-    if scope.function_versioncmp([@lsbmajdistrelease,'6']) < 0 then
+    if scope.function_versioncmp([@operatingsystemmajrelease,'6']) < 0 then
       t_dhclientargs << "-T #{@dhclient_timeout}"
     else
       t_dhclientargs << "-timeout #{@dhclient_timeout}"
