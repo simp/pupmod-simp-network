@@ -28,6 +28,7 @@ define network::route (
   $next_hop,
   $auto_restart = true
 ) {
+  validate_bool($auto_restart)
 
   file { "/etc/sysconfig/network-scripts/route-${interface}":
     ensure    => 'file',
@@ -35,7 +36,7 @@ define network::route (
     group     => 'root',
     mode      => '0644',
     subscribe => Concat_build["route_${interface}"],
-    notify    => Exec["route_restart_$name"],
+    notify    => Exec["route_restart_${name}"],
     audit     => content
   }
 
@@ -47,16 +48,16 @@ define network::route (
   }
 
   concat_fragment { "route_${interface}+${name}":
-    content => "$cidr_netmask via $next_hop\n",
+    content => "${cidr_netmask} via ${next_hop}\n",
   }
 
-  exec { "route_restart_$name":
-    command     => $auto_restart ? {
-      true    => "/sbin/ifdown $name && /sbin/ifup $name; wait",
-      default => '/bin/true'
-    },
+  $_command = $auto_restart ? {
+    true    => "/sbin/ifdown ${name} && /sbin/ifup ${name}; wait",
+    default => '/bin/true'
+  }
+
+  exec { "route_restart_${name}":
+    command     => $_command,
     refreshonly => true
   }
-
-  validate_bool($auto_restart)
 }

@@ -50,6 +50,7 @@ class network::global (
   $auto_restart = true,
   $persistent_dhclient = ''
 ) {
+  validate_bool($auto_restart)
 
   file { '/etc/sysconfig/network':
     owner   => 'root',
@@ -59,13 +60,13 @@ class network::global (
     notify  => Exec['global_network_restart']
   }
 
-  exec { 'global_network_restart':
-    command     => $auto_restart ? {
-      true    => '/sbin/service network restart',
-      default => '/bin/true'
-    },
-    refreshonly => true
+  $_command = $auto_restart ? {
+    true    => '/sbin/service network restart',
+    default => '/bin/true'
   }
 
-  validate_bool($auto_restart)
+  exec { 'global_network_restart':
+    command     => $_command,
+    refreshonly => true
+  }
 }

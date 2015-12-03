@@ -9,5 +9,5 @@ describe 'network::route' do
     :next_hop     => '1.2.3.5'
   }}
 
-  it { should create_file('/etc/sysconfig/network-scripts/route-test_eth') }
+  it { is_expected.to create_file('/etc/sysconfig/network-scripts/route-test_eth') }
 end

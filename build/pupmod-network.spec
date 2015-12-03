@@ -1,12 +1,11 @@
 Summary: Host Network Puppet Module
 Name: pupmod-network
 Version: 4.1.0
-Release: 5
+Release: 6
 License: Apache License, Version 2.0
 Group: Applications/System
 Source: %{name}-%{version}-%{release}.tar.gz
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-Requires: pupmod-common >= 4.1.0-4
 Requires: pupmod-simplib >= 1.0.0-0
 Requires: pupmod-simpcat >= 3.4
 Requires: puppet >= 3.3.0
@@ -56,7 +55,13 @@ fi
 # Post uninstall stuff
 
 %changelog
-* Mon Nov 09 2015 Chris Tessmer <chris.tessmer@onypoint.com> - 4.1.0-5
+* Thu Dec 03 2015 Chris Tessmer <chris.tessmer@onyxpoint.com> - 4.1.0-6
+- Replaced all 'lsb*' facts with their (package-independent)
+  'operatingsystem*' counterparts.
+- Common module assets have been normalized, lint errors corrected,
+  and rspect tests have been updated to the new 'expect' syntax.
+
+* Mon Nov 09 2015 Chris Tessmer <chris.tessmer@onyxpoint.com> - 4.1.0-5
 - migration to simplib and simpcat (lib/ only)
 
 * Fri Mar 06 2015 Chris Tessmer <chris.tessmer@onyxpoint.com> - 4.1.0-4
