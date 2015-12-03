@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'network::add_eth' do
   let(:facts) {{
-    :lsbmajdistrelease => '6'
+    :operatingsystemmajrelease => '6'
   }}
 
   context 'base' do
@@ -15,9 +15,9 @@ describe 'network::add_eth' do
       :hwaddr    => 'CA:FE:BA:BE:00:FF'
     }}
 
-    it { should create_file('/etc/sysconfig/network-scripts/ifcfg-test_eth').with_content(/^BOOTPROTO=dhcp/) }
-    it { should create_file('/etc/sysconfig/network-scripts/ifcfg-test_eth').with_content(/^HWADDR=CA:FE:BA:BE:00:FF/) }
-    it { should create_file('/etc/sysconfig/network-scripts/ifcfg-test_eth').without_content(/^(?!\w|#|\s*$)/) }
+    it { is_expected.to create_file('/etc/sysconfig/network-scripts/ifcfg-test_eth').with_content(/^BOOTPROTO=dhcp/) }
+    it { is_expected.to create_file('/etc/sysconfig/network-scripts/ifcfg-test_eth').with_content(/^HWADDR=CA:FE:BA:BE:00:FF/) }
+    it { is_expected.to create_file('/etc/sysconfig/network-scripts/ifcfg-test_eth').without_content(/^(?!\w|#|\s*$)/) }
   end
 
   context 'bond' do
@@ -32,7 +32,7 @@ describe 'network::add_eth' do
       :userctl     => 'no',
     }}
 
-    it { should create_file('/etc/sysconfig/network-scripts/ifcfg-test_bond').with_content(/^BONDING_OPTS='miimon=100 mode=4'/) }
-    it { should create_file('/etc/sysconfig/network-scripts/ifcfg-test_bond').without_content(/^(?!\w|#|\s*$)/) }
+    it { is_expected.to create_file('/etc/sysconfig/network-scripts/ifcfg-test_bond').with_content(/^BONDING_OPTS='miimon=100 mode=4'/) }
+    it { is_expected.to create_file('/etc/sysconfig/network-scripts/ifcfg-test_bond').without_content(/^(?!\w|#|\s*$)/) }
   end
 end

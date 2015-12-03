@@ -203,27 +203,27 @@ define network::add_eth (
 
 
   if $ensure == 'absent' {
-    file { "/etc/sysconfig/network-scripts/ifcfg-$name":
+    file { "/etc/sysconfig/network-scripts/ifcfg-${name}":
       ensure => 'absent'
     }
 
-    exec { "/sbin/ifdown $name":
+    exec { "/sbin/ifdown ${name}":
       onlyif => "/sbin/ip link show up | /usr/bin/tr -d ' ' | /bin/grep '^[[:digit:]]' | /bin/cut -f2 -d':' | /bin/grep -q '^${name}$'",
-      notify => File["/etc/sysconfig/network-scripts/ifcfg-$name"]
+      notify => File["/etc/sysconfig/network-scripts/ifcfg-${name}"]
     }
   }
   else {
-    file { "/etc/sysconfig/network-scripts/ifcfg-$name":
+    file { "/etc/sysconfig/network-scripts/ifcfg-${name}":
       ensure  => 'file',
       owner   => 'root',
       group   => 'root',
       mode    => '0644',
       content => template('network/eth.erb'),
-      notify  => Exec["network_restart_$name"]
+      notify  => Exec["network_restart_${name}"]
     }
 
     if $net_type == 'Bridge' or $bridge != '' or $bonding or $slave != '' {
-      exec { "network_restart_$name":
+      exec { "network_restart_${name}":
         command     => '/bin/true',
         refreshonly => true,
         notify      => Service['network']
@@ -267,7 +267,7 @@ define network::add_eth (
       # it's coming up. If it took more than 10 seconds, something's probably
       # very wrong with your network.
       $command_string = $auto_restart ? {
-        true    => "/sbin/ifdown $name ; /sbin/ifup $name && wait && sleep 10",
+        true    => "/sbin/ifdown ${name} ; /sbin/ifup ${name} && wait && sleep 10",
         default => '/bin/true',
       }
 
@@ -276,7 +276,7 @@ define network::add_eth (
         default             => '/bin/false'
       }
 
-      exec { "network_restart_$name":
+      exec { "network_restart_${name}":
         command     => $command_string,
         refreshonly => $refreshonly,
         onlyif      => $onlyif
@@ -290,13 +290,13 @@ define network::add_eth (
         group   => 'root',
         mode    => '0640',
         content => template('network/modprobe_bond.erb'),
-        notify  => Exec["activate_bonding_$name"]
+        notify  => Exec["activate_bonding_${name}"]
       }
 
-      exec { "activate_bonding_$name":
-        command     => "/sbin/modprobe -r $name && /sbin/modprobe $name",
+      exec { "activate_bonding_${name}":
+        command     => "/sbin/modprobe -r ${name} && /sbin/modprobe ${name}",
         refreshonly => true,
-        notify      => Exec["network_restart_$name"]
+        notify      => Exec["network_restart_${name}"]
       }
     }
   }
