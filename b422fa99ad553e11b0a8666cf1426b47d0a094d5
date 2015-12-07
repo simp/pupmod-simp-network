@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac4a560_2cdc4312",
+        "filename": "build/pupmod-network.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1005194
+      },
+      "writtenOn": "2015-12-07T23:54:20Z",
+      "side": 1,
+      "message": "needs bump and changelog update",
+      "revId": "b422fa99ad553e11b0a8666cf1426b47d0a094d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
