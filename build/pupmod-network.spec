@@ -1,7 +1,7 @@
 Summary: Host Network Puppet Module
 Name: pupmod-network
-Version: 4.1.0
-Release: 6
+Version: 4.1.1
+Release: 0
 License: Apache License, Version 2.0
 Group: Applications/System
 Source: %{name}-%{version}-%{release}.tar.gz
@@ -55,6 +55,9 @@ fi
 # Post uninstall stuff
 
 %changelog
+* Thu May 19 2016 Chris Tessmer <chris.tessmer@onypoint.com> - 4.1.1-0
+- Sanitize code for `STRICT_VARIABLES=yes`
+
 * Thu Dec 03 2015 Chris Tessmer <chris.tessmer@onyxpoint.com> - 4.1.0-6
 - Replaced all 'lsb*' facts with their (package-independent)
   'operatingsystem*' counterparts.

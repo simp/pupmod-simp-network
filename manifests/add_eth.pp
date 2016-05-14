@@ -244,7 +244,7 @@ define network::add_eth (
       $refreshonly    = inline_template('<%=
         result = "false"
         safe_if_name   = "ipaddress_#{@name.gsub(/\.|:/,\'_\')}"
-        ip_fact_exists = has_variable?( safe_if_name )
+        ip_fact_exists =  scope.function_defined(["$safe_if_name"])
         if ip_fact_exists
           result         = "true"
           bootproto      = (scope.lookupvar( "bootproto" ))

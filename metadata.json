@@ -1,13 +1,17 @@
 {
-  "name":    "simp-network",
-  "version": "4.1.0",
-  "author":  "simp",
+  "name": "simp-network",
+  "version": "4.1.1",
+  "author": "simp",
   "summary": "manages host networking",
   "license": "Apache-2.0",
-  "source":  "https://github.com/simp/pupmod-simp-network",
+  "source": "https://github.com/simp/pupmod-simp-network",
   "project_page": "https://github.com/simp/pupmod-simp-network",
-  "issues_url":   "https://simp-project.atlassian.net",
-  "tags": [ "simp", "network", "interface" ],
+  "issues_url": "https://simp-project.atlassian.net",
+  "tags": [
+    "simp",
+    "network",
+    "interface"
+  ],
   "dependencies": [
     {
       "name": "simp-simpcat",
