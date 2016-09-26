@@ -241,21 +241,22 @@ define network::add_eth (
       # configure an offline system.
       #
       # TODO: lotsa-logic; should probably be a custom type by this point:
-      $refreshonly    = inline_template('<%=
-        result = "false"
-        safe_if_name   = "ipaddress_#{@name.gsub(/\.|:/,\'_\')}"
-        ip_fact_exists =  scope.function_defined(["$safe_if_name"])
-        if ip_fact_exists
-          result         = "true"
-          bootproto      = (scope.lookupvar( "bootproto" ))
-          ip_fact_value  = (scope.lookupvar( safe_if_name ))
-          ip_param_value = (scope.lookupvar( "ipaddr" ))
+      $refreshonly = inline_template('<%=
+        result       = "false"
+        safe_if_name = "ipaddress_#{@name.gsub(/\.|:/,\'_\')}"
+
+        # Something about Puppet 3 does not like the "has_variable?" function
+        if instance_variable_get("@#{safe_if_name}")
+          result    = "true"
+          bootproto = (scope.lookupvar( "bootproto" ))
+          ip_fact   =  scope.lookupvar(safe_if_name)
+          ip_param  = (scope.lookupvar( "ipaddr" ))
 
           # special cases to always refresh:
           #   - ipaddress is nonsense (workaround to no-net ipaddress bug)
           #   - $name is static and ipaddress_$name does not match $ipaddr
           if ( scope.lookupvar( "ipaddress" ) =~ /^127.0.0.1$|[^\d|\.]+/ ) ||
-             ( bootproto != "dhcp" && ( ip_fact_value != ip_param_value ))
+             ( bootproto != "dhcp" && ( ip_fact != ip_param ))
           then
             result = "false"
           end
