@@ -1,3 +1,6 @@
+* Fri Sep 30 2016 Trevor Vaughan <tvaughan@onyxpoint.com> - 5.0.0-0
+- Updated to use the new 'simpcat' that deconflicts with 'puppetlabs/concat'
+
 * Mon Sep 26 2016 Trevor Vaughan <tvaughan@onyxpoint.com> - 4.1.2-0
 - Ensure that no calls to 'function_defined' are present in any templates for
   Puppet 4 compatibility
