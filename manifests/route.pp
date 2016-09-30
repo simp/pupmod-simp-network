@@ -35,19 +35,19 @@ define network::route (
     owner     => 'root',
     group     => 'root',
     mode      => '0644',
-    subscribe => Concat_build["route_${interface}"],
+    subscribe => Simpcat_build["route_${interface}"],
     notify    => Exec["route_restart_${name}"],
     audit     => content
   }
 
-  if !defined(Concat_build["route_${interface}"]) {
-    concat_build { "route_${interface}":
+  if !defined(Simpcat_build["route_${interface}"]) {
+    simpcat_build { "route_${interface}":
       target        => "/etc/sysconfig/network-scripts/route-${interface}",
       squeeze_blank => true
     }
   }
 
-  concat_fragment { "route_${interface}+${name}":
+  simpcat_fragment { "route_${interface}+${name}":
     content => "${cidr_netmask} via ${next_hop}\n",
   }
 
