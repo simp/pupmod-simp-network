@@ -1,3 +1,6 @@
+* Mon Nov 21 2016 Chris Tessmer <chris.tessmer@onypoint.com> - 5.0.0-0
+- Removed compliance map and general house keeping
+
 * Fri Sep 30 2016 Trevor Vaughan <tvaughan@onyxpoint.com> - 5.0.0-0
 - Updated to use the new 'simpcat' that deconflicts with 'puppetlabs/concat'
 
