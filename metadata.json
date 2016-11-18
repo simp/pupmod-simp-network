@@ -1,7 +1,7 @@
 {
   "name": "simp-network",
   "version": "5.0.0",
-  "author": "simp",
+  "author": "SIMP Team",
   "summary": "manages host networking",
   "license": "Apache-2.0",
   "source": "https://github.com/simp/pupmod-simp-network",
