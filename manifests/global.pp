@@ -1,56 +1,49 @@
-# == Class: network::global
-#
 # This sets up the global options in /etc/sysconfig/network
 #
 # See /usr/share/doc/initscripts-<version>/sysconfig.txt for details of
 # each option.
 #
-# == Parameters
-#
-# [*gateway*]
-# [*gatewaydev*]
-# [*hostname*]
-# [*ipv6_autoconf*]
-# [*ipv6_autotunnel*]
-# [*ipv6_defaultdev*]
-# [*ipv6_defaultgw*]
-# [*ipv6_router*]
-# [*ipv6forwarding*]
-# [*network*]
-# [*networkdelay*]
-# [*networking*]
-# [*networking_ipv6*]
-# [*nisdomain*]
-# [*nozeroconf*]
-# [*peerdns*]
-# [*vlan*]
-# [*auto_restart*]
-#   Restart the network if necessary due to a configuration change.
-#
-# [*persistent_dhclient*]
+# @param gateway
+# @param gatewaydev
+# @param hostname
+# @param ipv6_autoconf
+# @param ipv6_autotunnel
+# @param ipv6_defaultdev
+# @param ipv6_defaultgw
+# @param ipv6_router
+# @param ipv6forwarding
+# @param network
+# @param networkdelay
+# @param networking
+# @param networking_ipv6
+# @param nisdomain
+# @param nozeroconf
+# @param peerdns
+# @param vlan
+# @param auto_restart Restart the network if necessary due to a configuration change.
+# @param persistent_dhclient
 #
 class network::global (
-  $gateway = '',
-  $gatewaydev = '',
-  $hostname = $fqdn,
-  $ipv6_autoconf = '',
-  $ipv6_autotunnel = '',
-  $ipv6_defaultdev = '',
-  $ipv6_defaultgw = '',
-  $ipv6_router = '',
-  $ipv6forwarding = 'no',
-  $network = '',
-  $networkdelay = '0',
-  $networking = 'yes',
-  $networking_ipv6 = 'yes',
-  $nisdomain = '',
-  $nozeroconf = '',
-  $peerdns = 'no',
-  $vlan = 'no',
-  $auto_restart = true,
-  $persistent_dhclient = ''
+  Optional[Simplib::IP] $gateway             = undef,
+  Optional[String]      $gatewaydev          = undef,
+  Simplib::Hostname     $hostname            = $facts['fqdn'],
+  Optional[Boolean]     $ipv6_autoconf       = undef,
+  Optional[Boolean]     $ipv6_autotunnel     = undef,
+  Optional[String]      $ipv6_defaultdev     = undef,
+  Optional[String]      $ipv6_defaultgw      = undef,
+  Optional[Boolean]     $ipv6_router         = undef,
+  Boolean               $ipv6forwarding      = false,
+  Optional[Simplib::IP] $network             = undef,
+  Optional[Integer]     $networkdelay        = 0,
+  Optional[Boolean]     $networking          = true,
+  Optional[Boolean]     $networking_ipv6     = true,
+  Optional[String]      $nisdomain           = undef,
+  Boolean               $nozeroconf          = false,
+  Optional[Boolean]     $peerdns             = false,
+  Boolean               $vlan                = false,
+  Optional[Boolean]     $auto_restart        = true,
+  Boolean               $persistent_dhclient = false
 ) {
-  validate_bool($auto_restart)
 
   file { '/etc/sysconfig/network':
     owner   => 'root',

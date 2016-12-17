@@ -1,3 +1,9 @@
+* Mon Dec 19 2016 Nick Miller <nick.miller@onyxpoint.com> - 6.0.0-0
+- Strong typing w/new IP types
+  - All parameters that were 'yes' or 'no' are now optional booleans
+- Removed most validation from templates
+- Added more tests for all manifests
+
 * Mon Nov 21 2016 Chris Tessmer <chris.tessmer@onypoint.com> - 5.0.0-0
 - Removed compliance map and general house keeping
 

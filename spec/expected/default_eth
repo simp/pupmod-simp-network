@@ -1,0 +1,5 @@
+BOOTPROTO=dhcp
+DEVICE=default_eth
+IPV6_PRIVACY=rfc3041
+ONBOOT=yes
+DHCLIENTARGS='-timeout 10080'

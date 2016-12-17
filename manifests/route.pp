@@ -1,5 +1,3 @@
-# == Define: network::route
-#
 # Add a static route to an interface.
 #
 # See /usr/share/doc/initscripts-<version>/sysconfig.txt for details of
@@ -10,25 +8,20 @@
 #
 #       cidr_netmask => "192.168.1.0/24 via 192.168.0.1\n192.168.2.0/24"
 #
-# == Parameters
-#
-# [*interface*]
-# [*cidr_netmask*]
-# [*next_hop*]
-# [*auto_restart*]
+# @param interface
+# @param cidr_netmask
+# @param next_hop
+# @param auto_restart
 #   Restart the network if necessary due to a configuration change.
 #
-# == Authors
-#
-# * Trevor Vaughan <tvaughan@onyxpoint.com>
+# @author Trevor Vaughan <tvaughan@onyxpoint.com>
 #
 define network::route (
-  $interface,
-  $cidr_netmask,
-  $next_hop,
-  $auto_restart = true
+  String      $interface,
+  String      $cidr_netmask,
+  Simplib::IP $next_hop,
+  Boolean     $auto_restart = true
 ) {
-  validate_bool($auto_restart)
 
   file { "/etc/sysconfig/network-scripts/route-${interface}":
     ensure    => 'file',
