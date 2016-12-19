@@ -1,46 +1,47 @@
-<% if !@gateway.empty? then -%>
+<% bool_to_yesno = { true => 'yes', false => 'no' } -%>
+<% if !@gateway.nil? then -%>
 GATEWAY=<%= @gateway %>
 <% end -%>
-<% if !@gatewaydev.empty? then -%>
+<% if !@gatewaydev.nil? then -%>
 GATEWAYDEV=<%= @gatewaydev %>
 <% end -%>
 HOSTNAME=<%= @hostname %>
-<% if !@ipv6_defaultdev.empty? then -%>
+<% if !@ipv6_defaultdev.nil? then -%>
 IPV6_DEFAULTDEV=<%= @ipv6_defaultdev %>
 <% end -%>
-<% if !@ipv6_defaultgw.empty? then -%>
+<% if !@ipv6_defaultgw.nil? then -%>
 IPV6_DEFAULTGW=<%= @ipv6_defaultgw %>
 <% end -%>
-NETWORKING_IPV6=<%= @networking_ipv6 %>
-<% if !@network.empty? then -%>
+NETWORKING_IPV6=<%= bool_to_yesno[@networking_ipv6] %>
+<% if !@network.nil? then -%>
 NETWORK=<%= @network %>
 <% end -%>
-<% if !@nisdomain.empty? then -%>
+<% if !@nisdomain.nil? then -%>
 NISDOMAIN=<%= @nisdomain %>
 <% end -%>
-<% if !@nozeroconf.empty? then -%>
-NOZEROCONF=<%= @nozeroconf %>
+<% if @nozeroconf then -%>
+NOZEROCONF=yes
 <% end -%>
-PEERDNS=<%= @peerdns %>
-NETWORKING=<%= @networking %>
-<% if !@vlan.eql?('no') then -%>
+PEERDNS=<%= bool_to_yesno[@peerdns] %>
+NETWORKING=<%= bool_to_yesno[@networking] %>
+<% if @vlan then -%>
 VLAN=yes
 <% end -%>
-<% if !@networkdelay.empty? then -%>
+<% if !@networkdelay.nil? then -%>
 NETWORKDELAY=<%= @networkdelay %>
 <% end -%>
-<% if !@ipv6forwarding.eql?('no') then -%>
-IPV6FORWARDING=<%= @ipv6forwarding %>
+<% if @ipv6forwarding then -%>
+IPV6FORWARDING=yes
 <% end -%>
-<% if !@ipv6_autoconf.empty? then -%>
-IPV6_AUTOCONF=<%= @ipv6_autoconf -%>
+<% if !@ipv6_autoconf.nil? then -%>
+IPV6_AUTOCONF=<%= bool_to_yesno[@ipv6_autoconf] -%>
 <% end -%>
-<% if !@ipv6_router.empty? then -%>
-IPV6_ROUTER=<%= @ipv6_router -%>
+<% if !@ipv6_router.nil? then -%>
+IPV6_ROUTER=<%= bool_to_yesno[@ipv6_router] -%>
 <% end -%>
-<% if !@ipv6_autotunnel.empty? then -%>
-IPV6_AUTOTUNNEL=<%= @ipv6_autotunnel %>
+<% if !@ipv6_autotunnel.nil? then -%>
+IPV6_AUTOTUNNEL=<%= bool_to_yesno[@ipv6_autotunnel] %>
 <% end -%>
-<% if !@persistent_dhclient.empty? then -%>
+<% if @persistent_dhclient then -%>
 PERSISTENT_DHCLIENT='1'
 <% end -%>

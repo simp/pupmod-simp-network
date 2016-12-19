@@ -1,18 +1,13 @@
-# == Class: network
+# Manage network devices
 #
-# == Parameters
-#
-# [*auto_restart*]
+# @param auto_restart
 #   Restart the network if necessary due to a configuration change.
 #
-# == Authors
-#
-# * Trevor Vaughan <tvaughan@onyxpoint.com>
+# @author Trevor Vaughan <tvaughan@onyxpoint.com>
 #
 class network (
-  $auto_restart = true
+  Boolean $auto_restart = true
 ) {
-  validate_bool($auto_restart)
 
   service { 'network':
     ensure    => 'running',
