@@ -217,7 +217,7 @@ define network::eth (
       # Otherwise, refresh it only when prodded by another resource change.
       #
       # NOTE: If the ipaddress fact is '127.0.0.1' or a non-ip (like 'FORCE'),
-      # add_eth will *always* force a refresh.  This works around a fatal error
+      # this class will *always* force a refresh.  This works around a fatal error
       # caused by the core fact 'ipaddress' and enables 'puppet apply' to
       # configure an offline system.
       #
@@ -245,6 +245,7 @@ define network::eth (
         result
       -%>')
 
+      # Only restart the interface you are managing
       # The sleep was added to make sure that the interface came back up if
       # it's coming up. If it took more than 10 seconds, something's probably
       # very wrong with your network.
@@ -253,9 +254,9 @@ define network::eth (
         default => '/bin/true',
       }
 
-      $onlyif         = $onboot ? {
-        /^(?i:(true|yes))/  => '/bin/true',
-        default             => '/bin/false'
+      $onlyif = $onboot ? {
+        true    => '/bin/true',
+        default => '/bin/false'
       }
 
       exec { "network_restart_${name}":

@@ -3,6 +3,7 @@
   - All parameters that were 'yes' or 'no' are now optional booleans
 - Removed most validation from templates
 - Added more tests for all manifests
+- Cleaned up regex in the careful restart script 
 
 * Mon Nov 21 2016 Chris Tessmer <chris.tessmer@onypoint.com> - 5.0.0-0
 - Removed compliance map and general house keeping

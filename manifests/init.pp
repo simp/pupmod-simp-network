@@ -17,9 +17,11 @@ class network (
     require   => File['/usr/local/sbin/careful_network_restart.sh']
   }
 
+  # Only works if Puppet is being run from cron (default in SIMP)
+  # Restart if `puppet apply` or `puppet agent` process is found
   $_content = $auto_restart ? {
     true    => '#!/bin/sh
-while [ `/bin/ps h -fC puppet,puppetd | /bin/grep -ce "puppet\(d\| agent\)"` -gt 0 ]; do /bin/sleep 5; done; /sbin/service network restart
+while [ `/bin/ps h -fC puppet | /bin/grep -ce "puppet \(agent\|apply\)"` -gt 0 ]; do /bin/sleep 5; done; /sbin/service network restart
 ',
     default => '/bin/true'
   }
