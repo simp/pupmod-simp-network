@@ -9,7 +9,7 @@ describe 'network' do
         context 'with default parameters' do
           it { is_expected.to create_class('network') }
           it { is_expected.to contain_service('network').with_ensure('running') }
-          it { is_expected.to create_file('/usr/local/sbin/careful_network_restart.sh').with_content(/puppet,puppetd/) }
+          it { is_expected.to create_file('/usr/local/sbin/careful_network_restart.sh').with_content(/"puppet \\\(agent\\\|apply\\\)"/) }
         end
 
         context 'with auto_restart => false' do
