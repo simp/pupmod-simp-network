@@ -223,12 +223,12 @@ define network::eth (
       #
       # TODO: lotsa-logic; should probably be a custom type by this point:
       $refreshonly = inline_template('<%=
-        result       = "false"
+        result       = false
         safe_if_name = "ipaddress_#{@name.gsub(/\.|:/,\'_\')}"
 
         # Something about Puppet 3 does not like the "has_variable?" function
         if instance_variable_get("@#{safe_if_name}")
-          result    = "true"
+          result    = true
           bootproto = (scope.lookupvar( "bootproto" ))
           ip_fact   =  scope.lookupvar(safe_if_name)
           ip_param  = (scope.lookupvar( "ipaddr" ))
@@ -239,7 +239,7 @@ define network::eth (
           if ( scope.lookupvar( "ipaddress" ) =~ /^127.0.0.1$|[^\d|\.]+/ ) ||
              ( bootproto != "dhcp" && ( ip_fact != ip_param ))
           then
-            result = "false"
+            result = false
           end
         end
         result
