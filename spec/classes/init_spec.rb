@@ -10,6 +10,8 @@ describe 'network' do
           it { is_expected.to create_class('network') }
           it { is_expected.to contain_service('network').with_ensure('running') }
           it { is_expected.to create_file('/usr/local/sbin/careful_network_restart.sh').with_content(/"puppet \\\(agent\\\|apply\\\)"/) }
+          it { is_expected.to create_package('bind-utils') }
+          it { is_expected.to create_package('bridge-utils') }
         end
 
         context 'with auto_restart => false' do

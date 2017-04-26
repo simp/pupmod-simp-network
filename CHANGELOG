@@ -1,3 +1,7 @@
+* Wed Apr 26 2017 Nick Miller <nick.miller@onyxpoint.com> - 6.0.2-0
+- Added management of bind-utils and bridge-utils
+  - Packages in this module now use the package_ensure catalyst
+
 * Wed Dec 15 2017 Nick Miller <nick.miller@onyxpoint.com> - 6.0.1-0
 - The inline template in the eth defined type now returns booleans
 
