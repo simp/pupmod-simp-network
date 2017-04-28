@@ -6,8 +6,7 @@
 # @author Trevor Vaughan <tvaughan@onyxpoint.com>
 #
 class network (
-  Boolean $auto_restart   = true,
-  String  $package_ensure = simplib::lookup('simp_options::package_ensure', { 'default_value' => 'installed' })
+  Boolean $auto_restart   = true
 ) {
 
   service { 'network':
@@ -35,7 +34,4 @@ while [ `/bin/ps h -fC puppet | /bin/grep -ce "puppet \(agent\|apply\)"` -gt 0 ]
     content => $_content
   }
 
-  package { ['bind-utils', 'bridge-utils']:
-    ensure => $package_ensure,
-  }
 }

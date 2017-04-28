@@ -6,7 +6,7 @@ GEM
     aws-sdk-v1 (1.67.0)
       json (~> 1.4)
       nokogiri (~> 1)
-    backports (3.7.0)
+    backports (3.8.0)
     beaker (3.15.0)
       aws-sdk-v1 (~> 1.57)
       beaker-hiera (~> 0.0)
@@ -370,7 +370,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
-    retriable (3.0.1)
+    retriable (3.0.2)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -435,7 +435,7 @@ GEM
       rspec-puppet-facts (~> 0)
     slop (3.6.0)
     spdx-licenses (1.1.0)
-    specinfra (2.67.8)
+    specinfra (2.67.9)
       net-scp
       net-ssh (>= 2.7, < 5.0)
       net-telnet
@@ -478,7 +478,7 @@ DEPENDENCIES
   metadata-json-lint
   pry
   pry-doc
-  puppet (~> 4.8.0)
+  puppet (~> 4.8.2)
   puppet-blacksmith
   puppet-lint-empty_string-check
   puppet-lint-trailing_comma-check

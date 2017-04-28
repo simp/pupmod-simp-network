@@ -6,7 +6,7 @@ gem_sources.each { |gem_source| source gem_source }
 
 group :test do
   gem 'rake'
-  gem 'puppet', ENV.fetch('PUPPET_VERSION', '~>4.8.0') # Default to SIMP 6
+  gem 'puppet', ENV.fetch('PUPPET_VERSION', '~>4.8.2') # Default to SIMP 6
   gem 'rspec'
   gem 'rspec-puppet'
   gem 'puppet-strings'

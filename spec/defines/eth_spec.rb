@@ -12,6 +12,12 @@ describe 'network::eth' do
           it { is_expected.to create_file('/etc/sysconfig/network-scripts/ifcfg-default_eth').with_content(expected) }
         end
 
+        context 'when configuring a bridge' do
+          let(:title) {'test_br'}
+          let(:params) {{ :bridge => 'br0' }}
+          it { is_expected.to create_package('bridge-utils') }
+        end
+
         context 'base' do
           let(:title) {'test_eth'}
           let(:params) {{
