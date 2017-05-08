@@ -176,7 +176,8 @@ define network::eth (
   Boolean                           $vlan                             = false,
   Optional[Network::VlanType]       $vlan_name_type                   = undef,
   Optional[Integer]                 $window                           = undef,
-  Boolean                           $auto_restart                     = true
+  Boolean                           $auto_restart                     = true,
+  String $package_ensure = simplib::lookup('simp_options::package_ensure', { 'default_value' => 'installed' })
 ) {
   include '::network'
 
@@ -282,6 +283,10 @@ define network::eth (
         notify      => Exec["network_restart_${name}"]
       }
     }
+  }
+
+  if $net_type == 'Bridge' or $bridge {
+    ensure_packages('bridge-utils', {'ensure' => $package_ensure } )
   }
 
 }

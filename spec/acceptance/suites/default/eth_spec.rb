@@ -42,10 +42,6 @@ describe 'network::eth class' do
         end
       end
 
-      it 'should fail when I want to work on it' do
-        on host, '/bin/false'
-      end
-
     end
   end
 

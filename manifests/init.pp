@@ -6,7 +6,7 @@
 # @author Trevor Vaughan <tvaughan@onyxpoint.com>
 #
 class network (
-  Boolean $auto_restart = true
+  Boolean $auto_restart   = true
 ) {
 
   service { 'network':
@@ -33,4 +33,5 @@ while [ `/bin/ps h -fC puppet | /bin/grep -ce "puppet \(agent\|apply\)"` -gt 0 ]
     group   => 'root',
     content => $_content
   }
+
 }
