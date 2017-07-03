@@ -24,7 +24,7 @@ env:
   global:
     - STRICT_VARIABLES=yes
   matrix:
-    - PUPPET_VERSION="~> 4.8.2"
+    - PUPPET_VERSION="~> 4.8.2" FORGE_PUBLISH=true
     - PUPPET_VERSION="~> 4.10.0"
     - PUPPET_VERSION="~> 4.9.2"
     - PUPPET_VERSION="~> 4.7.0"
@@ -39,14 +39,14 @@ deploy:
   - provider: puppetforge
     user: simp
     password:
-        secure: "hdbyFQBTla0VwwkSxcAbAfl89H8dow5gXw/LULS7HfqaQ45EpwuHiQWDxuXY0ZJspt4U+kKfnkLwGB0kGWVzUmc+totrAFABVq/0FQSUDwTfMWU1GN47WqQZ4lZIcYXoIrIXVJxw0llESQfDHvmG+aDiS7XXF4AZPkg+HCqXVEwGsu2AU7hjsOi6BZkTTO2AuJUTtlkaTLIiARBx2iP6u/66J1+HquRiZorHs8FGAQrVHtLKalBzLJCtUrzw7ee+26m4aY6k1crqV3ABugJgZeB0rvsUPEhFHz1m4c3g0vshSw3Z8CrNgBk25kTPTCBGS6EcR7835NYAgNWy9HpRoX99wdzU4MLhj2IU1t0ImfAcpMSNYPlTnGIgMWfIAfvw+k+wl+/oTtk7f7/I2H4QUGWWIJCWQtb2QzhH1vRc4kx3D4EB+zl4aHtXyGSYgIDwC1C5TMzBWuTuORTZ0jT1fzIuSTbyoFdZtqDoBQ5dE3rNP7KU5bjljpey4JcLBpsxPeEQsXWtkNgJ7GxTXwBJxK2ByWcU6v7V6iA7fPONMmxuneWTH7kJ/+lomFcrn1agW5SkhZri24Q1dWiVpGOq0xrjyyGU08ChinIu15lyVkcu1PTYxRg0bldarDtsMVG5hAG0aGxUcAxKZfb6aMY1Nr5AylxHXyUQb0LrbQCHB+0="
+        secure: "Fm8TwuJWAc2MRkxmaiudw4TWBdv5itQ96pfIxWXvnTxPLcrS5tSSmBdV4wfFp3vopoEk+PekyVtpfVXtZ9DheJ0rL4WPQnvnFzkZup0OKqC6F9yxoKPDfcfO7ZgoxPZWk63MjKN7YaxTeUa+47b6WWiQrR5sdt8FTx9kt+m73MXlROu++wFMm4f7bHrzJt1eKNo1gTd8/PuprjYhX/ajx/sumkWB1G43HqjX3FFJdQsWA/5vHIr5rEFErV5XaRvGsXDcUSIfulBKrd1LXfsyqFlZ5ukwRq8We25NQJFrBXb4rETRT/Ij4Vxvo2UhRrUXVA9gOqiU7NYiuaXLzNk1H1ZEMtvh2J/3oaBOde5txKY5gJqoovwkTLsZ4H/C7NLcap76MKmXAf8za/bOmfbGumUeAzi7X4MiC5+f5SBKY2hydvXECJctExH5RhsEuiRrvdagmMAdS0+FpB7lACuomxAPgEtnugduZJmKB/2xd/LToefed6kklXODXKr1bSGKdxATCDEkSur4YYdkvLtE7cVGWJq0EjgGrbvHzbCS4c9JOGYDwQ0VJ6hDiuMMIFje7pRj/TiJ/hKVx4fKHN3qh88zE2q7gvSoF1S+MVbeFKdg8Bz/WjBDcAVNOm2Fp3bRM/SftUHGcmiJjsm2+1lJwL8f+Uur0I1y03nldJWQfy4="
     on:
       tags: true
       rvm: 2.1.9
       condition: '$FORGE_PUBLISH = true'
   - provider: releases
     api_key:
-        secure: "CR3Ta4CWIlkguxULCdWu10WCRtwuZ5wvezZ8L33QUGNDujALSapznU633ngYG0HneW4WzC1vuVf1Io7kFSYAAnuQB8XgU+/EX4Tk3KgIGZyM6NyujJ89RawyNitOFmQyZJr5O3nwusU04P3+UWjhoqAOvJ8Elu6vQEla7GkO4ngfsJJ1igkVyknlbxeiS8pO9eh2Iw0HIUBatA32OY6rb9l5AxKRJ0HhnZitxPVemQZ4muXRjjpsa/kdl9qWpjm7Tp6dpH18Tjvn9IGNvS+c58ltfd9MyDCNPG76mUuQnvHdCpk9J7Avi7xZDSS9oPQCvWtUblAQrv5yOpEBAcIiouoE2ZbyVPanRH/QnULlFs5Hz3Ya5jmfoSDYa186CYdfLIzcHC7Wzq5GDKCnyCHbz7iCzeIgG14iY/3pSesuZ1iNw+eCxpkQAr/DzCKhKsbgBGaQuDuuhfa5TuaY7fapYkfTFzMIdsfS5gLIeuOYGdMChvNJgf7FfJsF5O8y1ZAW30RW39ZEjFzHDXgQzMUzlp9zRHU4a0eg4m0O4QXsRW8r059QPIY9hbB68njKC5V0H0SttzUsUsmbFALmeWT6JiY3AmD0BgabuFu9RXNtPlruO26ik4gXqDZdPElDI4BFhWT9xONCJkVHIAYzWp3yx+oQJmgyUrpYPvXJx0JCM1A="
+        secure: "FV4ADAQeOWzP+07gLr2rlWwj38aES87zrI6re5npFYXy9zhjeoDbhy1hiwfunS5hNWnxM5870gEEPUXteFEZJjuDtBjhkIqVEOoDzQKDrnoG4icWaHaqM2swDoh05U+OI2ctfCQFl2tIgXdwBICFLSrprpNq1bPKxjeShPHEuUuPzqCoITUQWrAcf1g+mc66gg2+3xU7h7fPVUj/e+4o9fyqXjtguHtPl6X+oSgb40OTkanCEuiTUPiyt8ZDPOC8Xu2lfvCnQZNYtNC6o4VEd1/5EaX3pgbufpdVGPbuzTB7Sb4OwCSeO1tNvpAh+Xra5m899UcEmeqowxrve89bs3ZPWNIkeXOB9HVkJ2befCoyWsLxi9+7AxwfjXyoo9EiG/wsf3r6g9QZMiJVAqKraBbNSygzCsIWZCn7N3TTdQrx0THwapu1zniS6H7JDzbBBoWA6OcLoTRr57x9NipmK2j73PmUru1rn43DkyuNUpxnluRddbglcIMKKIkF0lBfbuQWPT4j4IKVLMaYESfwv6YvgDDao8LlXqdSmwr0KqSIygqKfasmmYeoxnuN9MS7XmDtAdZWFIajNmM5PoIR0Xt8DvNaRH3GTPSTyIhsLrUwk2TdcJN3iNs4KRj/c5VL47jR6Xqg6/LvdZUo8AvNlqO7bVkHpRC76haDNdcewuY="
     skip_cleanup: true
     on:
       tags: true
