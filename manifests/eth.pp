@@ -204,7 +204,7 @@ define network::eth (
       notify  => Exec["network_restart_${name}"]
     }
 
-    if $net_type == 'Bridge' or $bridge != undef or $bonding or $slave != undef {
+    if ($net_type == 'Bridge') or ($bridge =~ NotUndef) or $bonding or ($slave =~ NotUndef) {
       exec { "network_restart_${name}":
         command     => '/bin/true',
         refreshonly => true,
@@ -223,47 +223,36 @@ define network::eth (
       # configure an offline system.
       #
       # TODO: lotsa-logic; should probably be a custom type by this point:
-      $refreshonly = inline_template('<%=
-        result       = false
-        safe_if_name = "ipaddress_#{@name.gsub(/\.|:/,\'_\')}"
+      $_safe_if_name = sprintf("ipaddress_%s", regsubst($name, '/\.|:/', '_'))
+      if fact($_safe_if_name) {
+        if ($facts['ipaddress'] =~ /^127.0.0.1$|[^\d|\.]+/) or ( ($bootproto != 'dhcp') and (fact($_safe_if_name) != $ipaddr )) {
+          $_refreshonly = false
+        }
+      }
+      else {
+        $_refreshonly = false
+      }
 
-        # Something about Puppet 3 does not like the "has_variable?" function
-        if instance_variable_get("@#{safe_if_name}")
-          result    = true
-          bootproto = (scope.lookupvar( "bootproto" ))
-          ip_fact   =  scope.lookupvar(safe_if_name)
-          ip_param  = (scope.lookupvar( "ipaddr" ))
-
-          # special cases to always refresh:
-          #   - ipaddress is nonsense (workaround to no-net ipaddress bug)
-          #   - $name is static and ipaddress_$name does not match $ipaddr
-          if ( scope.lookupvar( "ipaddress" ) =~ /^127.0.0.1$|[^\d|\.]+/ ) ||
-             ( bootproto != "dhcp" && ( ip_fact != ip_param ))
-          then
-            result = false
-          end
-        end
-        result
-      -%>')
+      unless defined('$_refreshonly') { $_refreshonly = true }
 
       # Only restart the interface you are managing
       # The sleep was added to make sure that the interface came back up if
       # it's coming up. If it took more than 10 seconds, something's probably
       # very wrong with your network.
-      $command_string = $auto_restart ? {
+      $_command_string = $auto_restart ? {
         true    => "/sbin/ifdown ${name} ; /sbin/ifup ${name} && wait && sleep 10",
         default => '/bin/true',
       }
 
-      $onlyif = $onboot ? {
+      $_onlyif = $onboot ? {
         true    => '/bin/true',
         default => '/bin/false'
       }
 
       exec { "network_restart_${name}":
-        command     => $command_string,
-        refreshonly => $refreshonly,
-        onlyif      => $onlyif
+        command     => $_command_string,
+        refreshonly => $_refreshonly,
+        onlyif      => $_onlyif
       }
     }
 
