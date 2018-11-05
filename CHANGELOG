@@ -1,3 +1,8 @@
+* Thu Nov 01 2018 Jeanne Greulich <jeanne,greulich@onyxpoint.com> - 6.0.3-0
+- Static asset updates for puppet 5
+- Update badges and contribution guide URL in README.md
+- Update to onyxpoint OEL boxes in acceptance tests
+
 * Fri Sep 07 2018 Liz Nemsick <lnemsick.simp@gmail.com> - 6.0.3-0
 - Drop Hiera 4 support
 
