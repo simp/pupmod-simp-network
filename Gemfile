@@ -20,19 +20,19 @@ group :test do
   gem 'simp-rake-helpers', ENV.fetch('SIMP_RAKE_HELPERS_VERSION', '~> 5.6')
 end
 
+gem 'net-telnet', '~> 0.1.1'
+
 group :development do
   gem 'travis'
   gem 'travis-lint'
   gem 'travish'
   gem 'puppet-blacksmith'
-  gem 'guard-rake'
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-doc'
 
-  # `listen` is a dependency of `guard`
-  # from `listen` 3.1+, `ruby_dep` requires Ruby version >= 2.2.3, ~> 2.2
-  gem 'listen', '~> 3.0.6'
+  # byebug 9.1+ requires ruby 2.2.0+
+  gem 'byebug', '~> 9.0.0'
 end
 
 group :system_tests do
