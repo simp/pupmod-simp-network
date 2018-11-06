@@ -9,17 +9,17 @@ describe 'network::eth class' do
     network::eth { 'br0':
       net_type  => 'Bridge',
       onboot    => true,
-      macaddr   => $facts['macaddress_#{@interfaces.last}'],
-      require   => Network::Eth['#{@interfaces.last}'],
-      ipaddr    => '10.0.2.20',
-      gateway   => '10.0.2.2',
-      broadcast => '255.255.255.0',
+      macaddr   => $facts['macaddress_#{@tgt_iface}'],
+      require   => Network::Eth['#{@tgt_iface}'],
+      ipaddr    => $facts['ipaddress_#{@tgt_iface}'],
+      gateway   => $facts['defaultgateway'],
+      broadcast => $facts['netmask_#{@tgt_iface}'],
       dns1      => '8.8.8.8'
     }
 
-    network::eth { '#{@interfaces.last}':
+    network::eth { '#{@tgt_iface}':
       bridge  => 'br0',
-      macaddr => $facts['macaddress_#{@interfaces.last}'],
+      macaddr => $facts['macaddress_#{@tgt_iface}'],
     }
     EOF
   }
@@ -28,7 +28,7 @@ describe 'network::eth class' do
     context "on #{host}" do
       before(:all) do
         # All interfaces with bridges and loopback removed
-        @interfaces = pfact_on(host, 'interfaces').split(',').delete_if{|i| i =~ /^(br|lo)/}
+        @tgt_iface = pfact_on(host, 'interfaces').split(',').delete_if{|i| i =~ /^(br|lo)/}.last.strip
       end
 
       it 'should work with no errors' do
@@ -41,7 +41,8 @@ describe 'network::eth class' do
       end
 
       it 'should have br0 as a device' do
-        sleep 15
+        # Need to wait for the interface to restart fully after the puppet run
+        sleep 30
         device = on host, 'ip address show dev br0'
         expect(device.stdout).to match(/br0/)
         expect(device.stdout).to match(/inet/)
