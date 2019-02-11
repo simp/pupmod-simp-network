@@ -139,7 +139,7 @@ define network::eth (
   Optional[Boolean]                 $reorder_hdr                      = undef,
   Optional[Simplib::IP]             $gateway                          = undef,
   Optional[Boolean]                 $hotplug                          = undef,
-  Optional[String]                  $hwaddr                           = undef,
+  Optional[Simplib::Macaddress]     $hwaddr                           = undef,
   Optional[Simplib::IP]             $ipaddr                           = undef,
   Optional[Boolean]                 $ipv6_autoconf                    = undef,
   Optional[Boolean]                 $ipv6_control_radvd               = undef,
@@ -158,7 +158,7 @@ define network::eth (
   Optional[Boolean]                 $ipv6to4init                      = undef,
   Optional[Boolean]                 $isalias                          = undef,
   Optional[Integer]                 $linkdelay                        = undef,
-  Optional[String]                  $macaddr                          = undef,
+  Optional[Simplib::Macaddress]     $macaddr                          = undef,
   Optional[String]                  $master                           = undef,
   Optional[String]                  $metric                           = undef,
   Optional[Integer]                 $mtu                              = undef,
@@ -180,9 +180,6 @@ define network::eth (
   String $package_ensure = simplib::lookup('simp_options::package_ensure', { 'default_value' => 'installed' })
 ) {
   include '::network'
-
-  if $macaddr { validate_macaddress($macaddr) }
-  if $hwaddr  { validate_macaddress($hwaddr) }
 
   if $ensure == 'absent' {
     file { "/etc/sysconfig/network-scripts/ifcfg-${name}":

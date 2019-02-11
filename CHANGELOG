@@ -1,3 +1,7 @@
+* Mon Feb 11 2019 Liz Nemsick <lnemsick.simp@gmail.com> - 6.0.4-0
+- Use Simplib::Macaddress data type in lieu of validate_macaddresses(),
+  a deprecated simplib Puppet 3 function.
+
 * Thu Nov 01 2018 Jeanne Greulich <jeanne,greulich@onyxpoint.com> - 6.0.3-0
 - Static asset updates for puppet 5
 - Update badges and contribution guide URL in README.md
