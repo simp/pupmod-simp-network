@@ -10,8 +10,16 @@ class network::service {
   if fact('simplib_networkmanager.enabled') {
     $_service_name = 'NetworkManager'
 
-    # This is apparently the only way to actually get all of the new
-    # configuration files to be read by NetworkManager. Quite disappointing.
+    # Attempted various permutations of these commands to get the acceptance
+    # test to work. This may be specific to bridging, but there really isn't
+    # any way to tell.
+    #
+    # Just restarting the NetworkManager service resulted in the ethernet
+    # device having the IP address and the Bridge hanging.
+    #
+    # Just restarting the networking missed picking up some of the new files.
+    #
+    # Restarting both, in this order, picked everything up properly.
     $_net_restart = 'service NetworkManager restart && nmcli networking off; sleep 1; nmcli networking on'
   }
   else {
