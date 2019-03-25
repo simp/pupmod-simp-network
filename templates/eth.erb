@@ -161,7 +161,7 @@
   end
 
   if !@dhclient_timeout.nil? then
-    if scope.function_versioncmp([@operatingsystemmajrelease,'6']) < 0 then
+    if scope.call_function('versioncmp',[@operatingsystemmajrelease,'6']) < 0 then
       t_dhclientargs << "-T #{@dhclient_timeout}"
     else
       t_dhclientargs << "-timeout #{@dhclient_timeout}"
