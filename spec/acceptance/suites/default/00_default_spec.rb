@@ -4,17 +4,17 @@ test_name 'network::eth class'
 
 describe 'network::eth class' do
   let(:manifest) { <<-EOF
-    include 'network'
+    include 'network::global'
 
     network::eth { 'br0':
       net_type  => 'Bridge',
       onboot    => true,
       macaddr   => $facts['macaddress_#{@tgt_iface}'],
-      require   => Network::Eth['#{@tgt_iface}'],
-      ipaddr    => $facts['ipaddress_#{@tgt_iface}'],
+      ipaddr    => pick($facts['ipaddress_#{@tgt_iface}'], $facts['ipaddress_br0']),
       gateway   => $facts['defaultgateway'],
       broadcast => $facts['netmask_#{@tgt_iface}'],
-      dns1      => '8.8.8.8'
+      dns1      => '8.8.8.8',
+      require   => Network::Eth['#{@tgt_iface}']
     }
 
     network::eth { '#{@tgt_iface}':

@@ -14,7 +14,7 @@
 # @param auto_restart
 #   Restart the network if necessary due to a configuration change.
 #
-# @author Trevor Vaughan <tvaughan@onyxpoint.com>
+# @author https://github.com/simp/pupmod-simp-network/graphs/contributors
 #
 define network::route (
   String      $interface,
