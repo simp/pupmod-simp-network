@@ -29,7 +29,7 @@ define network::route (
       group     => 'root',
       mode      => '0644',
       notify    => Exec["route_restart_${name}"],
-      path  => "/etc/sysconfig/network-scripts/route-${interface}"
+      path      => "/etc/sysconfig/network-scripts/route-${interface}"
     }
   }
 
