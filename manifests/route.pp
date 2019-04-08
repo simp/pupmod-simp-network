@@ -23,25 +23,19 @@ define network::route (
   Boolean     $auto_restart = true
 ) {
 
-  file { "/etc/sysconfig/network-scripts/route-${interface}":
-    ensure    => 'file',
-    owner     => 'root',
-    group     => 'root',
-    mode      => '0644',
-    subscribe => Simpcat_build["route_${interface}"],
-    notify    => Exec["route_restart_${name}"],
-    audit     => content
-  }
-
-  if !defined(Simpcat_build["route_${interface}"]) {
-    simpcat_build { "route_${interface}":
-      target        => "/etc/sysconfig/network-scripts/route-${interface}",
-      squeeze_blank => true
+  if ! defined(Concat["route_${interface}"]) {
+    concat { "route_${interface}":
+      owner     => 'root',
+      group     => 'root',
+      mode      => '0644',
+      notify    => Exec["route_restart_${name}"],
+      path  => "/etc/sysconfig/network-scripts/route-${interface}"
     }
   }
 
-  simpcat_fragment { "route_${interface}+${name}":
+  concat_fragment { "route_${interface}+${name}":
     content => "${cidr_netmask} via ${next_hop}\n",
+    target  => "route_${interface}"
   }
 
   $_command = $auto_restart ? {
