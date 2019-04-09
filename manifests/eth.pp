@@ -214,7 +214,7 @@ define network::eth (
         File["/etc/sysconfig/network-scripts/ifcfg-${name}"]
         ~> exec { "NetworkManager reload connection ${name}":
           command     => "nmcli con load '/etc/sysconfig/network-scripts/ifcfg-${name}' && nmcli dev reapply ${name}",
-          path        => "/bin",
+          path        => '/bin',
           refreshonly => true,
         }
         ~> Class['network::service']
@@ -249,7 +249,7 @@ define network::eth (
       # this class will *always* force a refresh.  This works around a fatal error
       # caused by the core fact 'ipaddress' and enables 'puppet apply' to
       # configure an offline system.
-      $_safe_if_name = sprintf("ipaddress_%s", regsubst($name, '/\.|:/', '_'))
+      $_safe_if_name = sprintf('ipaddress_%s', regsubst($name, '/\.|:/', '_'))
       if fact($_safe_if_name) {
         if ($facts['ipaddress'] =~ /^127.0.0.1$|[^\d|\.]+/) or ( (!($bootproto in ['dhcp','bootp'])) and (fact($_safe_if_name) != $ipaddr )) {
           $_refreshonly = false
