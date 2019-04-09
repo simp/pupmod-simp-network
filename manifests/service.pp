@@ -1,5 +1,9 @@
-# Wrapper around the network service that does not disconnect a puppet agent
-# run.
+# Restarts the network using a wrapper script that delays execution until
+# *after* the Puppet agent run is finished.
+#
+# This ensures that network changes aren't applied during a Puppet agent run
+# and potentially disrupt its other configurations and report (unless
+# explicitly configured otherwise in specific `network::eth` declarations).
 #
 # @author https://github.com/simp/pupmod-simp-network/graphs/contributors
 #
@@ -10,21 +14,27 @@ class network::service {
   if fact('simplib_networkmanager.enabled') {
     $_service_name = 'NetworkManager'
 
-    # Attempted various permutations of these commands to get the acceptance
-    # test to work. This may be specific to bridging, but there really isn't
-    # any way to tell.
+    # By design, NetworkManager doesn't need to restart the network in order to
+    # modify/add/remove connections.  However, by the time the delayed wrapper
+    # script runs, the simplest solution is to just reload all connections'
+    # configurations.
     #
-    # Just restarting the NetworkManager service resulted in the ethernet
-    # device having the IP address and the Bridge hanging.
+    # Cycling `nmcli networking` on and off is a hack that appears to be
+    # *required*, at least to bring up a DHCP-enabled bridge using an
+    # already-active connection (as we discovered in our acceptance tests).
     #
-    # Just restarting the networking missed picking up some of the new files.
-    #
-    # Restarting both, in this order, picked everything up properly.
-    $_net_restart = 'service NetworkManager restart && nmcli networking off; sleep 1; nmcli networking on'
+    # There might be a less disruptive way to to do this, but it would probably
+    # involve a lot of refactoring and a building up a (probably fragile) chain
+    # of delayed connection-specific nmcli commands.
+    $_net_restart = 'echo foo' #nmcli con reload && nmcli networking off; sleep 1; nmcli networking on'
   }
   else {
     $_service_name = 'network'
-    $_net_restart = 'service network restart'
+    if $facts['service_provider'] == 'systemd' {
+      $_net_restart = 'systemctl restart network'
+    } else {
+      $_net_restart = 'service network restart'
+    }
   }
 
   $_restart_cmd = @("CMD")

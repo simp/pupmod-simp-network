@@ -11,7 +11,7 @@
 # HWADDR is pulled from facter if possible.
 # ONBOOT is aliased to ONPARENT for alias devices
 #
-# This does require that you include 'network::redhat' to get the network
+# FIXME: This does require that you include 'network::redhat' to get the network
 # service defined.
 #
 # @param name
@@ -207,7 +207,18 @@ define network::eth (
 
     # NetworkManager needs to handle everything itself
     if $nm_controlled {
-      File["/etc/sysconfig/network-scripts/ifcfg-${name}"] ~> Class['network::service']
+      File["/etc/sysconfig/network-scripts/ifcfg-${name}"]
+      ~> Class['network::service']
+
+      if $auto_restart {
+        File["/etc/sysconfig/network-scripts/ifcfg-${name}"]
+        ~> exec { "NetworkManager reload connection ${name}":
+          command     => "nmcli con load '/etc/sysconfig/network-scripts/ifcfg-${name}' && nmcli dev reapply ${name}",
+          path        => "/bin",
+          refreshonly => true,
+        }
+        ~> Class['network::service']
+      }
     }
     else {
       File["/etc/sysconfig/network-scripts/ifcfg-${name}"] ~> Exec["network_restart_${name}"]
