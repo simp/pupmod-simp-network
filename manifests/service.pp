@@ -1,66 +1,27 @@
-# Restarts the network using a wrapper script that delays execution until
-# *after* the Puppet agent run is finished.
+# Contains all supported network management services
 #
-# This ensures that network changes aren't applied during a Puppet agent run
-# and potentially disrupt its other configurations and report (unless
-# explicitly configured otherwise in specific `network::eth` declarations).
+# @param manage_legacy
+#   Enable management of the legacy 'network' service
+#
+# @param manage_network_manager
+#   Enable management of the NetworkManager service
+#
+#   * Defaults to the running active state of NetworkManager on the target system
 #
 # @author https://github.com/simp/pupmod-simp-network/graphs/contributors
 #
-class network::service {
+class network::service (
+  Boolean $manage_legacy          = true,
+  Boolean $manage_network_manager = pick(fact('simplib__networkmanager.enabled'), false)
+){
 
   assert_private()
 
-  if fact('simplib_networkmanager.enabled') {
-    $_service_name = 'NetworkManager'
-
-    # By design, NetworkManager doesn't need to restart the network in order to
-    # modify/add/remove connections.  However, by the time the delayed wrapper
-    # script runs, the simplest solution is to just reload all connections'
-    # configurations.
-    #
-    # Cycling `nmcli networking` on and off is a hack that appears to be
-    # *required*, at least to bring up a DHCP-enabled bridge using an
-    # already-active connection (as we discovered in our acceptance tests).
-    #
-    # There might be a less disruptive way to to do this, but it would probably
-    # involve a lot of refactoring and a building up a (probably fragile) chain
-    # of delayed connection-specific nmcli commands.
-    $_net_restart = 'echo foo' #nmcli con reload && nmcli networking off; sleep 1; nmcli networking on'
-  }
-  else {
-    $_service_name = 'network'
-    if $facts['service_provider'] == 'systemd' {
-      $_net_restart = 'systemctl restart network'
-    } else {
-      $_net_restart = 'service network restart'
-    }
+  if $manage_legacy {
+    contain network::service::legacy
   }
 
-  $_restart_cmd = @("CMD")
-    #!/bin/sh
-    while [ `ps h -fC puppet | grep -ce "puppet \\(agent\\|apply\\)"` -gt 0 ]; do
-      sleep 5
-    done
-
-    # The input redirection here is required for this to work in Puppet 5
-    ${_net_restart} > /dev/null 2>&1
-    | CMD
-
-  file { '/usr/local/sbin/careful_network_restart.sh':
-    ensure  => 'file',
-    mode    => '0750',
-    owner   => 'root',
-    group   => 'root',
-    content => $_restart_cmd
-  }
-
-  service { $_service_name:
-    ensure     => 'running',
-    enable     => true,
-    restart    => '/usr/local/sbin/careful_network_restart.sh &',
-    hasstatus  => true,
-    hasrestart => false,
-    require    => File['/usr/local/sbin/careful_network_restart.sh']
+  if $manage_network_manager {
+    contain network::service::network_manager
   }
 }

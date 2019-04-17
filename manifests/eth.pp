@@ -93,7 +93,12 @@
 # @param net_type
 # @param netmask
 # @param network
+#
 # @param nm_controlled
+#   **EXPERIMENTAL** feature to mark an interface as controlled by
+#   NetworkManager. If set, the code attempts a best-effort case to enable the
+#   interface and control it via the NetworkManager tools.
+#
 # @param nozeroconf
 # @param onboot
 # @param peerdns
@@ -166,7 +171,7 @@ define network::eth (
   Optional[String[1]]               $net_type                         = undef,
   Optional[Simplib::IP]             $netmask                          = undef,
   Optional[Simplib::IP]             $network                          = undef,
-  Boolean                           $nm_controlled                    = pick(fact('simplib_networkmanager.enabled'), false),
+  Boolean                           $nm_controlled                    = pick(fact('simplib__networkmanager.enabled'), false),
   Optional[String[1]]               $nozeroconf                       = undef,
   Optional[Boolean]                 $onboot                           = true,
   Optional[Boolean]                 $peerdns                          = undef,
@@ -207,17 +212,13 @@ define network::eth (
 
     # NetworkManager needs to handle everything itself
     if $nm_controlled {
-      File["/etc/sysconfig/network-scripts/ifcfg-${name}"]
-      ~> Class['network::service']
+      include network::service::network_manager
 
-      if $auto_restart {
-        File["/etc/sysconfig/network-scripts/ifcfg-${name}"]
-        ~> exec { "NetworkManager reload connection ${name}":
-          command     => "nmcli con load '/etc/sysconfig/network-scripts/ifcfg-${name}' && nmcli dev reapply ${name}",
-          path        => '/bin',
-          refreshonly => true,
-        }
-        ~> Class['network::service']
+      exec { "NetworkManager load connection ${name}":
+        command     => "nmcli con load '/etc/sysconfig/network-scripts/ifcfg-${name}'",
+        path        => '/bin',
+        refreshonly => true,
+        subscribe   => File["/etc/sysconfig/network-scripts/ifcfg-${name}"]
       }
     }
     else {
@@ -232,8 +233,12 @@ define network::eth (
         notify      => Class['network::service']
       }
 
-      # NetworkManager needs to handle everything itself
-      unless $nm_controlled {
+      if $nm_controlled {
+        Exec["network_restart_${name}"] ~> Class['network::service::network_manager']
+      }
+      else {
+        Exec["network_restart_${name}"] ~> Class['network::service::legacy']
+
         if ($net_type == 'Bridge') or ($bridge =~ NotUndef) {
           Class['network::eth::bridge_packages'] -> Exec["network_restart_${name}"]
         }
@@ -265,9 +270,16 @@ define network::eth (
       # The sleep was added to make sure that the interface came back up if
       # it's coming up. If it took more than 10 seconds, something's probably
       # very wrong with your network.
-      $_command_string = $auto_restart ? {
-        true    => "/usr/sbin/ip link set ${name} down; /usr/sbin/ip link set ${name} up && wait && sleep 10",
-        default => '/bin/true',
+      if $auto_restart {
+        if $nm_controlled {
+          $_command_string = "/bin/nmcli connection down ifname ${name}; /bin/nmcli connection up ifname ${name} && wait && sleep 10"
+        }
+        else {
+          $_command_string = "/sbin/ifdown ${name}; /sbin/ifup ${name} && wait && sleep 10"
+        }
+      }
+      else {
+        $_command_string = '/bin/true'
       }
 
       $_onlyif = $onboot ? {
@@ -301,7 +313,7 @@ define network::eth (
 
       # NetworkManager needs to handle everything itself
       if $nm_controlled {
-        Exec["activate_bonding_${name}"] ~> Class['network::service']
+        Exec["activate_bonding_${name}"] ~> Class['network::service::network_manager']
       }
       else {
         Exec["activate_bonding_${name}"] ~> Exec["network_restart_${name}"]

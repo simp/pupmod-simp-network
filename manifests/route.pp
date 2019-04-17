@@ -23,13 +23,15 @@ define network::route (
   Boolean     $auto_restart = true
 ) {
 
+  simplib::assert_metadata($module_name)
+
   if ! defined(Concat["route_${interface}"]) {
     concat { "route_${interface}":
-      owner     => 'root',
-      group     => 'root',
-      mode      => '0644',
-      notify    => Exec["route_restart_${name}"],
-      path      => "/etc/sysconfig/network-scripts/route-${interface}"
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
+      notify => Exec["route_restart_${name}"],
+      path   => "/etc/sysconfig/network-scripts/route-${interface}"
     }
   }
 
