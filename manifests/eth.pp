@@ -171,7 +171,7 @@ define network::eth (
   Optional[String[1]]               $net_type                         = undef,
   Optional[Simplib::IP]             $netmask                          = undef,
   Optional[Simplib::IP]             $network                          = undef,
-  Boolean                           $nm_controlled                    = pick(fact('simplib__networkmanager.enabled'), false),
+  Boolean                           $nm_controlled                    = false,
   Optional[String[1]]               $nozeroconf                       = undef,
   Optional[Boolean]                 $onboot                           = true,
   Optional[Boolean]                 $peerdns                          = undef,
