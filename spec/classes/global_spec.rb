@@ -5,13 +5,25 @@ describe 'network::global' do
     on_supported_os.each do |os, os_facts|
       context "on #{os}" do
         let(:facts) { os_facts }
+        let(:expected) { File.read('spec/expected/default_sysconfig_network') }
 
         # Look in hieradata/default.yaml for variables that were set for this test.
         context 'with default parameters' do
-          let(:expected) { File.read('spec/expected/default_sysconfig_network') }
           it { is_expected.to create_class('network::global') }
-          it { is_expected.to create_exec('global_network_restart').with_command('/sbin/service network restart') }
+          it { is_expected.to create_class('network::service') }
           it { is_expected.to create_file('/etc/sysconfig/network').with_content(expected) }
+          it { is_expected.to create_file('/etc/sysconfig/network').that_notifies('Class[network::service]') }
+        end
+
+        context 'without auto_restart' do
+          let(:params) {{
+            :auto_restart => false
+          }}
+
+          it { is_expected.to create_class('network::global') }
+          it { is_expected.to create_class('network::service') }
+          it { is_expected.to create_file('/etc/sysconfig/network').with_content(expected) }
+          it { is_expected.to_not create_file('/etc/sysconfig/network').that_notifies('Class[network::service]') }
         end
 
         context 'with every parameter set' do
@@ -39,7 +51,6 @@ describe 'network::global' do
           let(:expected) { File.read('spec/expected/fancy_sysconfig_network') }
           it { is_expected.to create_file('/etc/sysconfig/network').with_content(expected) }
         end
-
       end
     end
   end

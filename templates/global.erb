@@ -1,47 +1,53 @@
 <% bool_to_yesno = { true => 'yes', false => 'no' } -%>
-<% if !@gateway.nil? then -%>
+<% unless @gateway.nil? -%>
 GATEWAY=<%= @gateway %>
 <% end -%>
-<% if !@gatewaydev.nil? then -%>
+<% unless @gatewaydev.nil? -%>
 GATEWAYDEV=<%= @gatewaydev %>
 <% end -%>
 HOSTNAME=<%= @hostname %>
-<% if !@ipv6_defaultdev.nil? then -%>
+<% unless @ipv6_defaultdev.nil? -%>
 IPV6_DEFAULTDEV=<%= @ipv6_defaultdev %>
 <% end -%>
-<% if !@ipv6_defaultgw.nil? then -%>
+<% unless @ipv6_defaultgw.nil? -%>
 IPV6_DEFAULTGW=<%= @ipv6_defaultgw %>
 <% end -%>
+<% unless @networking_ipv6.nil? -%>
 NETWORKING_IPV6=<%= bool_to_yesno[@networking_ipv6] %>
-<% if !@network.nil? then -%>
+<% end -%>
+<% unless @network.nil? -%>
 NETWORK=<%= @network %>
 <% end -%>
-<% if !@nisdomain.nil? then -%>
+<% unless @nisdomain.nil? -%>
 NISDOMAIN=<%= @nisdomain %>
 <% end -%>
-<% if @nozeroconf then -%>
+<% if @nozeroconf -%>
 NOZEROCONF=yes
 <% end -%>
+<% unless @peerdns.nil? -%>
 PEERDNS=<%= bool_to_yesno[@peerdns] %>
+<% end -%>
+<% unless @networking.nil? -%>
 NETWORKING=<%= bool_to_yesno[@networking] %>
-<% if @vlan then -%>
+<% end -%>
+<% if @vlan -%>
 VLAN=yes
 <% end -%>
-<% if !@networkdelay.nil? then -%>
+<% unless @networkdelay.nil? -%>
 NETWORKDELAY=<%= @networkdelay %>
 <% end -%>
-<% if @ipv6forwarding then -%>
+<% if @ipv6forwarding -%>
 IPV6FORWARDING=yes
 <% end -%>
-<% if !@ipv6_autoconf.nil? then -%>
+<% unless @ipv6_autoconf.nil? -%>
 IPV6_AUTOCONF=<%= bool_to_yesno[@ipv6_autoconf] -%>
 <% end -%>
-<% if !@ipv6_router.nil? then -%>
+<% unless @ipv6_router.nil? -%>
 IPV6_ROUTER=<%= bool_to_yesno[@ipv6_router] -%>
 <% end -%>
-<% if !@ipv6_autotunnel.nil? then -%>
+<% unless @ipv6_autotunnel.nil? -%>
 IPV6_AUTOTUNNEL=<%= bool_to_yesno[@ipv6_autotunnel] %>
 <% end -%>
-<% if @persistent_dhclient then -%>
+<% if @persistent_dhclient -%>
 PERSISTENT_DHCLIENT='1'
 <% end -%>
