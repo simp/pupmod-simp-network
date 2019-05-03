@@ -11,7 +11,7 @@
 # HWADDR is pulled from facter if possible.
 # ONBOOT is aliased to ONPARENT for alias devices
 #
-# This does require that you include 'network::redhat' to get the network
+# FIXME: This does require that you include 'network::redhat' to get the network
 # service defined.
 #
 # @param name
@@ -93,6 +93,12 @@
 # @param net_type
 # @param netmask
 # @param network
+#
+# @param nm_controlled
+#   **EXPERIMENTAL** feature to mark an interface as controlled by
+#   NetworkManager. If set, the code attempts a best-effort case to enable the
+#   interface and control it via the NetworkManager tools.
+#
 # @param nozeroconf
 # @param onboot
 # @param peerdns
@@ -104,7 +110,7 @@
 # @param auto_restart
 #   Restart the network if necessary due to a configuration change.
 #
-# @author Trevor Vaughan <tvaughan@onyxpoint.com>
+# @author https://github.com/simp/pupmod-simp-network/graphs/contributors
 #
 define network::eth (
   Optional[Boolean]                 $arp                              = undef,
@@ -121,20 +127,20 @@ define network::eth (
   Optional[Integer]                 $bond_updelay                     = undef,
   Optional[Integer[0,1]]            $bond_use_carrier                 = undef,
   Optional[Network::TransmitPolicy] $bond_xmit_hash_policy            = undef,
-  Enum['none','bootp','dhcp']       $bootproto                        = 'dhcp',
+  Network::Eth::BootProto           $bootproto                        = 'dhcp',
   Optional[String]                  $bridge                           = undef,
   Optional[Simplib::IP]             $broadcast                        = undef,
   Optional[Integer]                 $delay                            = undef,
   Optional[Boolean]                 $dhclient_ignore_gateway          = undef,
   Optional[Array[String]]           $dhclient_request_option_list     = undef,
   Integer                           $dhclient_timeout                 = 10080,
-  Optional[String]                  $dhclient_vendor_class_identifier = undef,
+  Optional[String[1]]               $dhclient_vendor_class_identifier = undef,
   Optional[Simplib::Hostname]       $dhcp_hostname                    = undef,
-  Optional[String]                  $dhcpclass                        = undef,
-  Optional[String]                  $dhcprelease                      = undef,
+  Optional[String[1]]               $dhcpclass                        = undef,
+  Optional[String[1]]               $dhcprelease                      = undef,
   Optional[Simplib::Host]           $dns1                             = undef,
   Optional[Simplib::Host]           $dns2                             = undef,
-  Optional[Array[String]]           $ethtool_opts                     = undef,
+  Optional[Array[String[1]]]        $ethtool_opts                     = undef,
   Enum['absent','present']          $ensure                           = 'present',
   Optional[Boolean]                 $reorder_hdr                      = undef,
   Optional[Simplib::IP]             $gateway                          = undef,
@@ -144,51 +150,55 @@ define network::eth (
   Optional[Boolean]                 $ipv6_autoconf                    = undef,
   Optional[Boolean]                 $ipv6_control_radvd               = undef,
   Optional[Integer]                 $ipv6_mtu                         = undef,
-  String                            $ipv6_privacy                     = 'rfc3041',
-  Optional[String]                  $ipv6_radvd_pidfile               = undef,
-  Optional[String]                  $ipv6_radvd_trigger_action        = undef,
+  String[1]                         $ipv6_privacy                     = 'rfc3041',
+  Optional[String[1]]               $ipv6_radvd_pidfile               = undef,
+  Optional[String[1]]               $ipv6_radvd_trigger_action        = undef,
   Optional[Boolean]                 $ipv6_router                      = undef,
   Optional[Simplib::IP::V6]         $ipv6addr                         = undef,
   Optional[Array[Simplib::IP::V6]]  $ipv6addr_secondaries             = undef,
   Optional[Boolean]                 $ipv6init                         = undef,
-  Optional[String]                  $ipv6to4_ipv4addr                 = undef,
+  Optional[String[1]]               $ipv6to4_ipv4addr                 = undef,
   Optional[Integer]                 $ipv6to4_mtu                      = undef,
-  Optional[String]                  $ipv6to4_relay                    = undef,
-  Optional[String]                  $ipv6to4_routing                  = undef,
+  Optional[String[1]]               $ipv6to4_relay                    = undef,
+  Optional[String[1]]               $ipv6to4_routing                  = undef,
   Optional[Boolean]                 $ipv6to4init                      = undef,
   Optional[Boolean]                 $isalias                          = undef,
-  Optional[Integer]                 $linkdelay                        = undef,
+  Optional[Integer[1]]              $linkdelay                        = undef,
   Optional[Simplib::Macaddress]     $macaddr                          = undef,
-  Optional[String]                  $master                           = undef,
-  Optional[String]                  $metric                           = undef,
-  Optional[Integer]                 $mtu                              = undef,
-  Optional[String]                  $net_type                         = undef,
+  Optional[String[1]]               $master                           = undef,
+  Optional[String[1]]               $metric                           = undef,
+  Optional[Integer[1]]              $mtu                              = undef,
+  Optional[String[1]]               $net_type                         = undef,
   Optional[Simplib::IP]             $netmask                          = undef,
   Optional[Simplib::IP]             $network                          = undef,
-  Optional[String]                  $nozeroconf                       = undef,
+  Boolean                           $nm_controlled                    = false,
+  Optional[String[1]]               $nozeroconf                       = undef,
   Optional[Boolean]                 $onboot                           = true,
   Optional[Boolean]                 $peerdns                          = undef,
-  Optional[String]                  $physdev                          = undef,
+  Optional[String[1]]               $physdev                          = undef,
   Optional[Boolean]                 $persistent_dhclient              = undef,
   Optional[Boolean]                 $slave                            = undef,
   Optional[Simplib::IP]             $srcaddr                          = undef,
   Optional[Boolean]                 $userctl                          = undef,
   Boolean                           $vlan                             = false,
   Optional[Network::VlanType]       $vlan_name_type                   = undef,
-  Optional[Integer]                 $window                           = undef,
-  Boolean                           $auto_restart                     = true,
-  String $package_ensure = simplib::lookup('simp_options::package_ensure', { 'default_value' => 'installed' })
+  Optional[Integer[1]]              $window                           = undef,
+  Boolean                           $auto_restart                     = true
 ) {
-  include '::network'
+  include 'network'
+
+  if ($net_type == 'Bridge') or ($bridge =~ NotUndef) {
+    include 'network::eth::bridge_packages'
+  }
 
   if $ensure == 'absent' {
-    file { "/etc/sysconfig/network-scripts/ifcfg-${name}":
-      ensure => 'absent'
+    exec { "/usr/sbin/ip link set ${name} down":
+      onlyif    => "/sbin/ip link show up | /usr/bin/tr -d ' ' | /bin/grep '^[[:digit:]]' | /bin/cut -f2 -d':' | /bin/grep -q '^${name}$'",
+      logoutput => 'on_failure',
     }
 
-    exec { "/sbin/ifdown ${name}":
-      onlyif => "/sbin/ip link show up | /usr/bin/tr -d ' ' | /bin/grep '^[[:digit:]]' | /bin/cut -f2 -d':' | /bin/grep -q '^${name}$'",
-      notify => File["/etc/sysconfig/network-scripts/ifcfg-${name}"]
+    file { "/etc/sysconfig/network-scripts/ifcfg-${name}":
+      ensure => 'absent'
     }
   }
   else {
@@ -197,15 +207,41 @@ define network::eth (
       owner   => 'root',
       group   => 'root',
       mode    => '0644',
-      content => template('network/eth.erb'),
-      notify  => Exec["network_restart_${name}"]
+      content => template('network/eth.erb')
+    }
+
+    # NetworkManager needs to handle everything itself
+    if $nm_controlled {
+      include network::service::network_manager
+
+      exec { "NetworkManager load connection ${name}":
+        command     => "nmcli con load '/etc/sysconfig/network-scripts/ifcfg-${name}'",
+        path        => '/bin',
+        refreshonly => true,
+        subscribe   => File["/etc/sysconfig/network-scripts/ifcfg-${name}"]
+      }
+    }
+    else {
+      File["/etc/sysconfig/network-scripts/ifcfg-${name}"] ~> Exec["network_restart_${name}"]
     }
 
     if ($net_type == 'Bridge') or ($bridge =~ NotUndef) or $bonding or ($slave =~ NotUndef) {
       exec { "network_restart_${name}":
         command     => '/bin/true',
         refreshonly => true,
-        notify      => Service['network']
+        logoutput   => 'on_failure',
+        notify      => Class['network::service']
+      }
+
+      if $nm_controlled {
+        Exec["network_restart_${name}"] ~> Class['network::service::network_manager']
+      }
+      else {
+        Exec["network_restart_${name}"] ~> Class['network::service::legacy']
+
+        if ($net_type == 'Bridge') or ($bridge =~ NotUndef) {
+          Class['network::eth::bridge_packages'] -> Exec["network_restart_${name}"]
+        }
       }
     }
     else {
@@ -218,11 +254,9 @@ define network::eth (
       # this class will *always* force a refresh.  This works around a fatal error
       # caused by the core fact 'ipaddress' and enables 'puppet apply' to
       # configure an offline system.
-      #
-      # TODO: lotsa-logic; should probably be a custom type by this point:
-      $_safe_if_name = sprintf("ipaddress_%s", regsubst($name, '/\.|:/', '_'))
+      $_safe_if_name = sprintf('ipaddress_%s', regsubst($name, '/\.|:/', '_'))
       if fact($_safe_if_name) {
-        if ($facts['ipaddress'] =~ /^127.0.0.1$|[^\d|\.]+/) or ( ($bootproto != 'dhcp') and (fact($_safe_if_name) != $ipaddr )) {
+        if ($facts['ipaddress'] =~ /^127.0.0.1$|[^\d|\.]+/) or ( (!($bootproto in ['dhcp','bootp'])) and (fact($_safe_if_name) != $ipaddr )) {
           $_refreshonly = false
         }
       }
@@ -236,9 +270,16 @@ define network::eth (
       # The sleep was added to make sure that the interface came back up if
       # it's coming up. If it took more than 10 seconds, something's probably
       # very wrong with your network.
-      $_command_string = $auto_restart ? {
-        true    => "/sbin/ifdown ${name} ; /sbin/ifup ${name} && wait && sleep 10",
-        default => '/bin/true',
+      if $auto_restart {
+        if $nm_controlled {
+          $_command_string = "/bin/nmcli connection down ifname ${name}; /bin/nmcli connection up ifname ${name} && wait && sleep 10"
+        }
+        else {
+          $_command_string = "/sbin/ifdown ${name}; /sbin/ifup ${name} && wait && sleep 10"
+        }
+      }
+      else {
+        $_command_string = '/bin/true'
       }
 
       $_onlyif = $onboot ? {
@@ -249,7 +290,8 @@ define network::eth (
       exec { "network_restart_${name}":
         command     => $_command_string,
         refreshonly => $_refreshonly,
-        onlyif      => $_onlyif
+        onlyif      => $_onlyif,
+        logoutput   => 'on_failure'
       }
     }
 
@@ -266,13 +308,16 @@ define network::eth (
       exec { "activate_bonding_${name}":
         command     => "/sbin/modprobe -r ${name} && /sbin/modprobe ${name}",
         refreshonly => true,
-        notify      => Exec["network_restart_${name}"]
+        logoutput   => 'on_failure'
+      }
+
+      # NetworkManager needs to handle everything itself
+      if $nm_controlled {
+        Exec["activate_bonding_${name}"] ~> Class['network::service::network_manager']
+      }
+      else {
+        Exec["activate_bonding_${name}"] ~> Exec["network_restart_${name}"]
       }
     }
   }
-
-  if $net_type == 'Bridge' or $bridge {
-    ensure_packages('bridge-utils', {'ensure' => $package_ensure } )
-  }
-
 }

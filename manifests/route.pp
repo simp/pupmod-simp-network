@@ -14,7 +14,7 @@
 # @param auto_restart
 #   Restart the network if necessary due to a configuration change.
 #
-# @author Trevor Vaughan <tvaughan@onyxpoint.com>
+# @author https://github.com/simp/pupmod-simp-network/graphs/contributors
 #
 define network::route (
   String      $interface,
@@ -23,13 +23,15 @@ define network::route (
   Boolean     $auto_restart = true
 ) {
 
+  simplib::assert_metadata($module_name)
+
   if ! defined(Concat["route_${interface}"]) {
     concat { "route_${interface}":
-      owner     => 'root',
-      group     => 'root',
-      mode      => '0644',
-      notify    => Exec["route_restart_${name}"],
-      path      => "/etc/sysconfig/network-scripts/route-${interface}"
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
+      notify => Exec["route_restart_${name}"],
+      path   => "/etc/sysconfig/network-scripts/route-${interface}"
     }
   }
 
