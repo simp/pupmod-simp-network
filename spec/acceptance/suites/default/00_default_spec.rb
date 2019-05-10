@@ -24,7 +24,8 @@ describe 'network::eth class' do
     network::eth { '#{@tgt_iface}':
       bridge       => 'br0',
       macaddr      => $facts['macaddress_#{@tgt_iface}'],
-      auto_restart => true
+      auto_restart => true,
+      nm_controlled => #{nm_controlled}
     }
     MANIFEST
   }
