@@ -1,3 +1,6 @@
+* Fri Aug 02 2019 Robert Vincent <pillarsdotnet@gmail.com> - 6.1.1-0
+- Support puppetlabs/concat 6.x and puppetlabs/stdlib 6.x.
+
 * Wed Apr 17 2019 Trevor Vaughan <tvaughan@onyxpoint.com> - 6.1.0-0
 - Ensure that the acceptance tests pass and bring up the bridge device
 - Fix the fact that network::global could break networking
