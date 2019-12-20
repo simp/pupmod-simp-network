@@ -34,8 +34,13 @@ describe 'network::eth class' do
   $nm_suts   = 0
   hosts.each do |host|
     [true, false].each do |enable_nm|
+      legacy_network_available = (on(host, 'service network status', accept_all_exit_codes: true).exit_code == 0)
+
+      next unless (enable_nm || legacy_network_available)
+
       nm_fact = on(host, 'which nmcli', accept_all_exit_codes: true )
       nm_enabled = enable_nm && (nm_fact.exit_code == 0) && !nm_fact.stdout.strip.empty?
+
       $test_suts += 1
       $nm_suts   += 1 if nm_enabled
 
