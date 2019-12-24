@@ -8,14 +8,29 @@ describe 'network::eth' do
 
         context 'with default parameters' do
           let(:title) { 'default_eth' }
-          let(:expected) { File.read('spec/expected/default_eth') }
+          let(:expected) {
+            content = File.read('spec/expected/default_eth')
+
+            if os_facts[:os][:release][:major] > '7' ||
+                (os_facts[:simplib__networkmanager] && os_facts[:simplib__networkmanager][:enabled])
+
+              content.gsub!(/^NM_CONTROLLED=\S+/m, 'NM_CONTROLLED=yes')
+            end
+
+            content
+          }
           it { is_expected.to create_file('/etc/sysconfig/network-scripts/ifcfg-default_eth').with_content(expected) }
         end
 
         context 'when configuring a bridge' do
           let(:title) {'test_br'}
           let(:params) {{ :bridge => 'br0' }}
-          it { is_expected.to create_package('bridge-utils') }
+
+          if os_facts[:os][:release][:major] < '8'
+            it { is_expected.to create_package('bridge-utils') }
+          else
+            it { is_expected.not_to create_package('bridge-utils') }
+          end
         end
 
         context 'base' do
@@ -122,10 +137,19 @@ describe 'network::eth' do
             :window                           => 15,
             :auto_restart                     => true,
           }}
-          let(:expected) { File.read('spec/expected/everything_eth') }
+          let(:expected) {
+            content = File.read('spec/expected/everything_eth')
+
+            if os_facts[:os][:release][:major] > '7' ||
+                (os_facts[:simplib__networkmanager] && os_facts[:simplib__networkmanager][:enabled])
+
+              content.gsub!(/^NM_CONTROLLED=\S+/m, 'NM_CONTROLLED=yes')
+            end
+
+            content
+          }
           it { is_expected.to create_file('/etc/sysconfig/network-scripts/ifcfg-everything_eth').with_content(expected) }
         end
-
       end
     end
   end
