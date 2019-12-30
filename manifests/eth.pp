@@ -28,6 +28,7 @@
 #   interface. If you explicitly set hwaddr or macaddr, then this will be
 #   ignored.
 #
+# @param arp
 # @param bond_arp_interval
 # @param bond_arp_ip_target
 # @param bond_downdelay
@@ -51,6 +52,7 @@
 # @param dhclient_request_option_list
 # @param dhclient_timeout
 # @param dhclient_vendor_class_identifier
+# @param dhcpclass
 # @param dhcp_hostname
 # @param dhcprelease
 # @param dns1
@@ -102,10 +104,13 @@
 # @param nozeroconf
 # @param onboot
 # @param peerdns
+# @param physdev
 # @param persistent_dhclient
 # @param slave
 # @param srcaddr
 # @param userctl
+# @param vlan
+# @param vlan_name_type
 # @param window
 # @param auto_restart
 #   Restart the network if necessary due to a configuration change.
@@ -171,7 +176,7 @@ define network::eth (
   Optional[String[1]]               $net_type                         = undef,
   Optional[Simplib::IP]             $netmask                          = undef,
   Optional[Simplib::IP]             $network                          = undef,
-  Boolean                           $nm_controlled                    = false,
+  Boolean                           $nm_controlled                    = pick(fact('simplib__networkmanager.enabled'), false),
   Optional[String[1]]               $nozeroconf                       = undef,
   Optional[Boolean]                 $onboot                           = true,
   Optional[Boolean]                 $peerdns                          = undef,
@@ -188,7 +193,9 @@ define network::eth (
   include 'network'
 
   if ($net_type == 'Bridge') or ($bridge =~ NotUndef) {
-    include 'network::eth::bridge_packages'
+    if ($facts['os']['name'] in ['RedHat','CentOS','OracleLinux']) and ($facts['os']['release']['major'] < '8') {
+      include 'network::eth::bridge_packages'
+    }
   }
 
   if $ensure == 'absent' {
@@ -222,6 +229,8 @@ define network::eth (
       }
     }
     else {
+      include network::service::legacy
+
       File["/etc/sysconfig/network-scripts/ifcfg-${name}"] ~> Exec["network_restart_${name}"]
     }
 

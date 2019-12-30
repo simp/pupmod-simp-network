@@ -1,4 +1,9 @@
-* Fri Aug 02 2019 Robert Vincent <pillarsdotnet@gmail.com> - 6.1.1-0
+* Fri Dec 20 2019 Trevor Vaughan <tvaughan@onyxpoint.com> - 6.2.0-0
+- Add EL8 support
+- Fix a bug where both the legacy network and NetworkManager were activated in
+  all cases
+
+* Fri Aug 02 2019 Robert Vincent <pillarsdotnet@gmail.com> - 6.2.0-0
 - Support puppetlabs/concat 6.x and puppetlabs/stdlib 6.x.
 
 * Wed Apr 17 2019 Trevor Vaughan <tvaughan@onyxpoint.com> - 6.1.0-0

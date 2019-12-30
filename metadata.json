@@ -1,6 +1,6 @@
 {
   "name": "simp-network",
-  "version": "6.1.1",
+  "version": "6.2.0",
   "author": "SIMP Team",
   "summary": "manages host networking",
   "license": "Apache-2.0",
@@ -23,7 +23,7 @@
     },
     {
       "name": "simp-simplib",
-      "version_requirement": ">= 3.15.0 < 4.0.0"
+      "version_requirement": ">= 3.15.0 < 5.0.0"
     }
   ],
   "operatingsystem_support": [
@@ -31,21 +31,24 @@
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
         "6",
-        "7"
+        "7",
+        "8"
       ]
     },
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
         "6",
-        "7"
+        "7",
+        "8"
       ]
     },
     {
       "operatingsystem": "OracleLinux",
       "operatingsystemrelease": [
         "6",
-        "7"
+        "7",
+        "8"
       ]
     }
   ],

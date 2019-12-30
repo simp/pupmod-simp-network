@@ -6,21 +6,33 @@
 
 #### Table of Contents
 
-1. [Overview](#overview)
-2. [Module Description - What the module does and why it is useful](#module-description)
-3. [Setup - The basics of getting started with simp-network](#setup)
+<!-- vim-markdown-toc GFM -->
+
+  * [Overview](#overview)
+  * [This is a SIMP module](#this-is-a-simp-module)
+  * [Module Description](#module-description)
+  * [Setup](#setup)
     * [What simp-network affects](#what-simp-network-affects)
-4. [Usage - Configuration options and additional functionality](#usage)
+  * [Usage](#usage)
     * [Basic Usage](#basic-usage)
-5. [Limitations - OS compatibility, etc.](#limitations)
-6. [Development - Guide for contributing to the module](#development)
-      * [Acceptance Tests - Beaker env variables](#acceptance-tests)
+      * [Set global networking parameters](#set-global-networking-parameters)
+      * [Manage a network interface](#manage-a-network-interface)
+      * [Set up a bridge bound to an interface](#set-up-a-bridge-bound-to-an-interface)
+* [Limitations](#limitations)
+  * [Development](#development)
+    * [Unit tests](#unit-tests)
+    * [Acceptance tests](#acceptance-tests)
+
+<!-- vim-markdown-toc -->
 
 ## Overview
 
 This module assists users in managing network interfaces on their system.
 
+See [REFERENCE.md](./REFERENCE.md) for API documentation.
+
 ## This is a SIMP module
+
 This module is a component of the [System Integrity Management Platform](https://simp-project.com)
 
 If you find any issues, please submit them via [JIRA](https://simp-project.atlassian.net/).

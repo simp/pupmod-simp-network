@@ -17,7 +17,7 @@ class network::service (
 
   assert_private()
 
-  if $manage_legacy {
+  if $manage_legacy and !$manage_network_manager {
     contain network::service::legacy
   }
 
