@@ -2,11 +2,9 @@
 .yardoc
 dist/
 pkg/
-spec/fixtures/*
-!spec/fixtures/hieradata/
-!spec/fixtures/hieradata/*
-spec/fixtures/hieradata/hiera.yaml
 spec/rp_env/
+!/spec/hieradata/default.yaml
+!/spec/fixtures/site.pp
 .rspec_system
 .vagrant/
 .bundle/
@@ -15,4 +13,5 @@ vendor/
 junit/
 log/
 doc/
+sec_results/
 .idea/
