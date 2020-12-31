@@ -265,7 +265,14 @@ define network::eth (
       # configure an offline system.
       $_safe_if_name = sprintf('ipaddress_%s', regsubst($name, '/\.|:/', '_'))
       if fact($_safe_if_name) {
-        if ($facts['ipaddress'] =~ /^127.0.0.1$|[^\d|\.]+/) or ( (!($bootproto in ['dhcp','bootp'])) and (fact($_safe_if_name) != $ipaddr )) {
+        $_iface_addr = fact($_safe_if_name)
+      }
+      else {
+        $_iface_addr = $facts.dig('networking', 'interfaces', $name, 'ip')
+      }
+
+      if $_iface_addr {
+        if ($facts['ipaddress'] =~ /^127.0.0.1$|[^\d|\.]+/) or ( (!($bootproto in ['dhcp','bootp'])) and ($_iface_addr != $ipaddr )) {
           $_refreshonly = false
         }
       }

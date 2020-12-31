@@ -1,3 +1,8 @@
+* Thu Dec 31 2020 Trevor Vaughan <tvaughan@onyxpoint.com> - 6.2.1
+- Fixed:
+  - Updated the network::eth define to use the modern facts to get IP addresses
+    to prevent interface flapping
+
 * Fri Dec 18 2020 Chris Tessmer <chris.tessmer@onyxpoint.com> - 6.2.1
 - Removed EL6 support
 
