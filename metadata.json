@@ -1,6 +1,6 @@
 {
   "name": "simp-network",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "author": "SIMP Team",
   "summary": "manages host networking",
   "license": "Apache-2.0",
@@ -30,7 +30,6 @@
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "6",
         "7",
         "8"
       ]
@@ -38,7 +37,6 @@
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "6",
         "7",
         "8"
       ]
@@ -46,7 +44,6 @@
     {
       "operatingsystem": "OracleLinux",
       "operatingsystemrelease": [
-        "6",
         "7",
         "8"
       ]
