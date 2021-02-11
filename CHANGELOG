@@ -1,4 +1,4 @@
-* Thu Fed 11 2021 Trevor Vaughan <tvaughan@onyxpoint.com> - 6.2.1
+* Thu Feb 11 2021 Trevor Vaughan <tvaughan@onyxpoint.com> - 6.2.1
 - Fixed:
   - Ensure that the network::eth define honors the network::auto_restart
     parameter by default
