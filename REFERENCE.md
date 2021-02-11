@@ -27,15 +27,17 @@
 
 ## Classes
 
-### `network`
+### <a name="network"></a>`network`
 
 Manage network devices
 
 #### Parameters
 
-The following parameters are available in the `network` class.
+The following parameters are available in the `network` class:
 
-##### `auto_restart`
+* [`auto_restart`](#auto_restart)
+
+##### <a name="auto_restart"></a>`auto_restart`
 
 Data type: `Boolean`
 
@@ -43,15 +45,17 @@ Restart the network if necessary due to a configuration change.
 
 Default value: ``true``
 
-### `network::eth::bridge_packages`
+### <a name="networkethbridge_packages"></a>`network::eth::bridge_packages`
 
 Include the required bridge packages
 
 #### Parameters
 
-The following parameters are available in the `network::eth::bridge_packages` class.
+The following parameters are available in the `network::eth::bridge_packages` class:
 
-##### `package_ensure`
+* [`package_ensure`](#package_ensure)
+
+##### <a name="package_ensure"></a>`package_ensure`
 
 Data type: `Simplib::PackageEnsure`
 
@@ -59,7 +63,7 @@ The state to which the required packages should be set
 
 Default value: `simplib::lookup('simp_options::package_ensure', { 'default_value' => 'installed' })`
 
-### `network::global`
+### <a name="networkglobal"></a>`network::global`
 
 This sets up the global options in /etc/sysconfig/network
 
@@ -68,9 +72,29 @@ each option.
 
 #### Parameters
 
-The following parameters are available in the `network::global` class.
+The following parameters are available in the `network::global` class:
 
-##### `gateway`
+* [`gateway`](#gateway)
+* [`gatewaydev`](#gatewaydev)
+* [`hostname`](#hostname)
+* [`ipv6_autoconf`](#ipv6_autoconf)
+* [`ipv6_autotunnel`](#ipv6_autotunnel)
+* [`ipv6_defaultdev`](#ipv6_defaultdev)
+* [`ipv6_defaultgw`](#ipv6_defaultgw)
+* [`ipv6_router`](#ipv6_router)
+* [`ipv6forwarding`](#ipv6forwarding)
+* [`network`](#network)
+* [`networkdelay`](#networkdelay)
+* [`networking`](#networking)
+* [`networking_ipv6`](#networking_ipv6)
+* [`nisdomain`](#nisdomain)
+* [`nozeroconf`](#nozeroconf)
+* [`peerdns`](#peerdns)
+* [`vlan`](#vlan)
+* [`auto_restart`](#auto_restart)
+* [`persistent_dhclient`](#persistent_dhclient)
+
+##### <a name="gateway"></a>`gateway`
 
 Data type: `Optional[Simplib::IP]`
 
@@ -78,7 +102,7 @@ Data type: `Optional[Simplib::IP]`
 
 Default value: ``undef``
 
-##### `gatewaydev`
+##### <a name="gatewaydev"></a>`gatewaydev`
 
 Data type: `Optional[String]`
 
@@ -86,7 +110,7 @@ Data type: `Optional[String]`
 
 Default value: ``undef``
 
-##### `hostname`
+##### <a name="hostname"></a>`hostname`
 
 Data type: `Simplib::Hostname`
 
@@ -94,7 +118,7 @@ Data type: `Simplib::Hostname`
 
 Default value: `$facts['fqdn']`
 
-##### `ipv6_autoconf`
+##### <a name="ipv6_autoconf"></a>`ipv6_autoconf`
 
 Data type: `Optional[Boolean]`
 
@@ -102,7 +126,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `ipv6_autotunnel`
+##### <a name="ipv6_autotunnel"></a>`ipv6_autotunnel`
 
 Data type: `Optional[Boolean]`
 
@@ -110,7 +134,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `ipv6_defaultdev`
+##### <a name="ipv6_defaultdev"></a>`ipv6_defaultdev`
 
 Data type: `Optional[String]`
 
@@ -118,7 +142,7 @@ Data type: `Optional[String]`
 
 Default value: ``undef``
 
-##### `ipv6_defaultgw`
+##### <a name="ipv6_defaultgw"></a>`ipv6_defaultgw`
 
 Data type: `Optional[String]`
 
@@ -126,7 +150,7 @@ Data type: `Optional[String]`
 
 Default value: ``undef``
 
-##### `ipv6_router`
+##### <a name="ipv6_router"></a>`ipv6_router`
 
 Data type: `Optional[Boolean]`
 
@@ -134,7 +158,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `ipv6forwarding`
+##### <a name="ipv6forwarding"></a>`ipv6forwarding`
 
 Data type: `Optional[Boolean]`
 
@@ -142,7 +166,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `network`
+##### <a name="network"></a>`network`
 
 Data type: `Optional[Simplib::IP]`
 
@@ -150,7 +174,7 @@ Data type: `Optional[Simplib::IP]`
 
 Default value: ``undef``
 
-##### `networkdelay`
+##### <a name="networkdelay"></a>`networkdelay`
 
 Data type: `Optional[Integer]`
 
@@ -158,7 +182,7 @@ Data type: `Optional[Integer]`
 
 Default value: ``undef``
 
-##### `networking`
+##### <a name="networking"></a>`networking`
 
 Data type: `Optional[Boolean]`
 
@@ -166,7 +190,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `networking_ipv6`
+##### <a name="networking_ipv6"></a>`networking_ipv6`
 
 Data type: `Optional[Boolean]`
 
@@ -174,7 +198,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `nisdomain`
+##### <a name="nisdomain"></a>`nisdomain`
 
 Data type: `Optional[String]`
 
@@ -182,7 +206,7 @@ Data type: `Optional[String]`
 
 Default value: ``undef``
 
-##### `nozeroconf`
+##### <a name="nozeroconf"></a>`nozeroconf`
 
 Data type: `Optional[Boolean]`
 
@@ -190,7 +214,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `peerdns`
+##### <a name="peerdns"></a>`peerdns`
 
 Data type: `Optional[Boolean]`
 
@@ -198,7 +222,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `vlan`
+##### <a name="vlan"></a>`vlan`
 
 Data type: `Optional[Boolean]`
 
@@ -206,7 +230,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `auto_restart`
+##### <a name="auto_restart"></a>`auto_restart`
 
 Data type: `Optional[Boolean]`
 
@@ -214,7 +238,7 @@ Restart the network if necessary due to a configuration change.
 
 Default value: `$network::auto_restart`
 
-##### `persistent_dhclient`
+##### <a name="persistent_dhclient"></a>`persistent_dhclient`
 
 Data type: `Optional[Boolean]`
 
@@ -222,15 +246,18 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-### `network::service`
+### <a name="networkservice"></a>`network::service`
 
 Contains all supported network management services
 
 #### Parameters
 
-The following parameters are available in the `network::service` class.
+The following parameters are available in the `network::service` class:
 
-##### `manage_legacy`
+* [`manage_legacy`](#manage_legacy)
+* [`manage_network_manager`](#manage_network_manager)
+
+##### <a name="manage_legacy"></a>`manage_legacy`
 
 Data type: `Boolean`
 
@@ -238,7 +265,7 @@ Enable management of the legacy 'network' service
 
 Default value: ``true``
 
-##### `manage_network_manager`
+##### <a name="manage_network_manager"></a>`manage_network_manager`
 
 Data type: `Boolean`
 
@@ -248,7 +275,7 @@ Enable management of the NetworkManager service
 
 Default value: `pick(fact('simplib__networkmanager.enabled'), false)`
 
-### `network::service::legacy`
+### <a name="networkservicelegacy"></a>`network::service::legacy`
 
 Restarts the network using a wrapper script that delays execution until
 *after* the Puppet agent run is finished.
@@ -257,7 +284,7 @@ This ensures that network changes aren't applied during a Puppet agent run
 and potentially disrupt its other configurations and report (unless
 explicitly configured otherwise in specific `network::eth` declarations).
 
-### `network::service::network_manager`
+### <a name="networkservicenetwork_manager"></a>`network::service::network_manager`
 
 Restarts the network using a wrapper script that delays execution until
 *after* the Puppet agent run is finished.
@@ -268,7 +295,7 @@ explicitly configured otherwise in specific `network::eth` declarations).
 
 ## Defined types
 
-### `network::eth`
+### <a name="networketh"></a>`network::eth`
 
 This sets up a particular ethernet device config file.
 
@@ -290,13 +317,86 @@ The following 3 options are passed as dhclientargs.
 
 #### Parameters
 
-The following parameters are available in the `network::eth` defined type.
+The following parameters are available in the `network::eth` defined type:
 
-##### `name`
+* [`name`](#name)
+* [`auto_discover_mac`](#auto_discover_mac)
+* [`bonding`](#bonding)
+* [`arp`](#arp)
+* [`bond_arp_interval`](#bond_arp_interval)
+* [`bond_arp_ip_target`](#bond_arp_ip_target)
+* [`bond_downdelay`](#bond_downdelay)
+* [`bond_lacp_rate`](#bond_lacp_rate)
+* [`bond_max_bonds`](#bond_max_bonds)
+* [`bond_miimon`](#bond_miimon)
+* [`bond_mode`](#bond_mode)
+* [`bond_primary`](#bond_primary)
+* [`bond_updelay`](#bond_updelay)
+* [`bond_use_carrier`](#bond_use_carrier)
+* [`bond_xmit_hash_policy`](#bond_xmit_hash_policy)
+* [`bootproto`](#bootproto)
+* [`bridge`](#bridge)
+* [`broadcast`](#broadcast)
+* [`delay`](#delay)
+* [`dhclient_ignore_gateway`](#dhclient_ignore_gateway)
+* [`dhclient_request_option_list`](#dhclient_request_option_list)
+* [`dhclient_timeout`](#dhclient_timeout)
+* [`dhclient_vendor_class_identifier`](#dhclient_vendor_class_identifier)
+* [`dhcpclass`](#dhcpclass)
+* [`dhcp_hostname`](#dhcp_hostname)
+* [`dhcprelease`](#dhcprelease)
+* [`dns1`](#dns1)
+* [`dns2`](#dns2)
+* [`ethtool_opts`](#ethtool_opts)
+* [`ensure`](#ensure)
+* [`reorder_hdr`](#reorder_hdr)
+* [`gateway`](#gateway)
+* [`hotplug`](#hotplug)
+* [`hwaddr`](#hwaddr)
+* [`ipaddr`](#ipaddr)
+* [`ipv6_autoconf`](#ipv6_autoconf)
+* [`ipv6_control_radvd`](#ipv6_control_radvd)
+* [`ipv6_mtu`](#ipv6_mtu)
+* [`ipv6_privacy`](#ipv6_privacy)
+* [`ipv6_radvd_pidfile`](#ipv6_radvd_pidfile)
+* [`ipv6_radvd_trigger_action`](#ipv6_radvd_trigger_action)
+* [`ipv6_router`](#ipv6_router)
+* [`ipv6addr`](#ipv6addr)
+* [`ipv6addr_secondaries`](#ipv6addr_secondaries)
+* [`ipv6init`](#ipv6init)
+* [`ipv6to4_ipv4addr`](#ipv6to4_ipv4addr)
+* [`ipv6to4_mtu`](#ipv6to4_mtu)
+* [`ipv6to4_relay`](#ipv6to4_relay)
+* [`ipv6to4_routing`](#ipv6to4_routing)
+* [`ipv6to4init`](#ipv6to4init)
+* [`isalias`](#isalias)
+* [`linkdelay`](#linkdelay)
+* [`macaddr`](#macaddr)
+* [`master`](#master)
+* [`metric`](#metric)
+* [`mtu`](#mtu)
+* [`net_type`](#net_type)
+* [`netmask`](#netmask)
+* [`network`](#network)
+* [`nm_controlled`](#nm_controlled)
+* [`nozeroconf`](#nozeroconf)
+* [`onboot`](#onboot)
+* [`peerdns`](#peerdns)
+* [`physdev`](#physdev)
+* [`persistent_dhclient`](#persistent_dhclient)
+* [`slave`](#slave)
+* [`srcaddr`](#srcaddr)
+* [`userctl`](#userctl)
+* [`vlan`](#vlan)
+* [`vlan_name_type`](#vlan_name_type)
+* [`window`](#window)
+* [`auto_restart`](#auto_restart)
+
+##### <a name="name"></a>`name`
 
 DEVICE is taken from this variable.
 
-##### `auto_discover_mac`
+##### <a name="auto_discover_mac"></a>`auto_discover_mac`
 
 Data type: `Boolean`
 
@@ -305,7 +405,7 @@ address for the interface specified.
 
 Default value: ``true``
 
-##### `bonding`
+##### <a name="bonding"></a>`bonding`
 
 Data type: `Boolean`
 
@@ -317,7 +417,7 @@ ignored.
 
 Default value: ``false``
 
-##### `arp`
+##### <a name="arp"></a>`arp`
 
 Data type: `Optional[Boolean]`
 
@@ -325,7 +425,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `bond_arp_interval`
+##### <a name="bond_arp_interval"></a>`bond_arp_interval`
 
 Data type: `Optional[Integer]`
 
@@ -333,7 +433,7 @@ Data type: `Optional[Integer]`
 
 Default value: ``undef``
 
-##### `bond_arp_ip_target`
+##### <a name="bond_arp_ip_target"></a>`bond_arp_ip_target`
 
 Data type: `Optional[Simplib::IP]`
 
@@ -341,7 +441,7 @@ Data type: `Optional[Simplib::IP]`
 
 Default value: ``undef``
 
-##### `bond_downdelay`
+##### <a name="bond_downdelay"></a>`bond_downdelay`
 
 Data type: `Optional[Integer]`
 
@@ -349,7 +449,7 @@ Data type: `Optional[Integer]`
 
 Default value: ``undef``
 
-##### `bond_lacp_rate`
+##### <a name="bond_lacp_rate"></a>`bond_lacp_rate`
 
 Data type: `Optional[Integer[0,1]]`
 
@@ -357,7 +457,7 @@ Data type: `Optional[Integer[0,1]]`
 
 Default value: ``undef``
 
-##### `bond_max_bonds`
+##### <a name="bond_max_bonds"></a>`bond_max_bonds`
 
 Data type: `Optional[Integer]`
 
@@ -365,7 +465,7 @@ Data type: `Optional[Integer]`
 
 Default value: ``undef``
 
-##### `bond_miimon`
+##### <a name="bond_miimon"></a>`bond_miimon`
 
 Data type: `Optional[Integer]`
 
@@ -373,7 +473,7 @@ Data type: `Optional[Integer]`
 
 Default value: ``undef``
 
-##### `bond_mode`
+##### <a name="bond_mode"></a>`bond_mode`
 
 Data type: `Optional[Network::BondMode]`
 
@@ -381,7 +481,7 @@ Data type: `Optional[Network::BondMode]`
 
 Default value: ``undef``
 
-##### `bond_primary`
+##### <a name="bond_primary"></a>`bond_primary`
 
 Data type: `Optional[String]`
 
@@ -389,7 +489,7 @@ Data type: `Optional[String]`
 
 Default value: ``undef``
 
-##### `bond_updelay`
+##### <a name="bond_updelay"></a>`bond_updelay`
 
 Data type: `Optional[Integer]`
 
@@ -397,7 +497,7 @@ Data type: `Optional[Integer]`
 
 Default value: ``undef``
 
-##### `bond_use_carrier`
+##### <a name="bond_use_carrier"></a>`bond_use_carrier`
 
 Data type: `Optional[Integer[0,1]]`
 
@@ -405,7 +505,7 @@ Data type: `Optional[Integer[0,1]]`
 
 Default value: ``undef``
 
-##### `bond_xmit_hash_policy`
+##### <a name="bond_xmit_hash_policy"></a>`bond_xmit_hash_policy`
 
 Data type: `Optional[Network::TransmitPolicy]`
 
@@ -413,7 +513,7 @@ Data type: `Optional[Network::TransmitPolicy]`
 
 Default value: ``undef``
 
-##### `bootproto`
+##### <a name="bootproto"></a>`bootproto`
 
 Data type: `Network::Eth::BootProto`
 
@@ -421,7 +521,7 @@ Data type: `Network::Eth::BootProto`
 
 Default value: `'dhcp'`
 
-##### `bridge`
+##### <a name="bridge"></a>`bridge`
 
 Data type: `Optional[String]`
 
@@ -429,7 +529,7 @@ Data type: `Optional[String]`
 
 Default value: ``undef``
 
-##### `broadcast`
+##### <a name="broadcast"></a>`broadcast`
 
 Data type: `Optional[Simplib::IP]`
 
@@ -437,7 +537,7 @@ Data type: `Optional[Simplib::IP]`
 
 Default value: ``undef``
 
-##### `delay`
+##### <a name="delay"></a>`delay`
 
 Data type: `Optional[Integer]`
 
@@ -445,7 +545,7 @@ If hosting VMs, set delay to 0.
 
 Default value: ``undef``
 
-##### `dhclient_ignore_gateway`
+##### <a name="dhclient_ignore_gateway"></a>`dhclient_ignore_gateway`
 
 Data type: `Optional[Boolean]`
 
@@ -453,7 +553,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `dhclient_request_option_list`
+##### <a name="dhclient_request_option_list"></a>`dhclient_request_option_list`
 
 Data type: `Optional[Array[String]]`
 
@@ -461,7 +561,7 @@ Data type: `Optional[Array[String]]`
 
 Default value: ``undef``
 
-##### `dhclient_timeout`
+##### <a name="dhclient_timeout"></a>`dhclient_timeout`
 
 Data type: `Integer`
 
@@ -469,7 +569,7 @@ Data type: `Integer`
 
 Default value: `10080`
 
-##### `dhclient_vendor_class_identifier`
+##### <a name="dhclient_vendor_class_identifier"></a>`dhclient_vendor_class_identifier`
 
 Data type: `Optional[String[1]]`
 
@@ -477,7 +577,7 @@ Data type: `Optional[String[1]]`
 
 Default value: ``undef``
 
-##### `dhcpclass`
+##### <a name="dhcpclass"></a>`dhcpclass`
 
 Data type: `Optional[String[1]]`
 
@@ -485,7 +585,7 @@ Data type: `Optional[String[1]]`
 
 Default value: ``undef``
 
-##### `dhcp_hostname`
+##### <a name="dhcp_hostname"></a>`dhcp_hostname`
 
 Data type: `Optional[Simplib::Hostname]`
 
@@ -493,7 +593,7 @@ Data type: `Optional[Simplib::Hostname]`
 
 Default value: ``undef``
 
-##### `dhcprelease`
+##### <a name="dhcprelease"></a>`dhcprelease`
 
 Data type: `Optional[String[1]]`
 
@@ -501,7 +601,7 @@ Data type: `Optional[String[1]]`
 
 Default value: ``undef``
 
-##### `dns1`
+##### <a name="dns1"></a>`dns1`
 
 Data type: `Optional[Simplib::Host]`
 
@@ -509,7 +609,7 @@ Data type: `Optional[Simplib::Host]`
 
 Default value: ``undef``
 
-##### `dns2`
+##### <a name="dns2"></a>`dns2`
 
 Data type: `Optional[Simplib::Host]`
 
@@ -517,7 +617,7 @@ Data type: `Optional[Simplib::Host]`
 
 Default value: ``undef``
 
-##### `ethtool_opts`
+##### <a name="ethtool_opts"></a>`ethtool_opts`
 
 Data type: `Optional[Array[String[1]]]`
 
@@ -525,7 +625,7 @@ Data type: `Optional[Array[String[1]]]`
 
 Default value: ``undef``
 
-##### `ensure`
+##### <a name="ensure"></a>`ensure`
 
 Data type: `Enum['absent','present']`
 
@@ -533,7 +633,7 @@ Data type: `Enum['absent','present']`
 
 Default value: `'present'`
 
-##### `reorder_hdr`
+##### <a name="reorder_hdr"></a>`reorder_hdr`
 
 Data type: `Optional[Boolean]`
 
@@ -541,7 +641,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `gateway`
+##### <a name="gateway"></a>`gateway`
 
 Data type: `Optional[Simplib::IP]`
 
@@ -549,7 +649,7 @@ Data type: `Optional[Simplib::IP]`
 
 Default value: ``undef``
 
-##### `hotplug`
+##### <a name="hotplug"></a>`hotplug`
 
 Data type: `Optional[Boolean]`
 
@@ -557,7 +657,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `hwaddr`
+##### <a name="hwaddr"></a>`hwaddr`
 
 Data type: `Optional[Simplib::Macaddress]`
 
@@ -568,7 +668,7 @@ If you set this, you have the following options:
 
 Default value: ``undef``
 
-##### `ipaddr`
+##### <a name="ipaddr"></a>`ipaddr`
 
 Data type: `Optional[Simplib::IP]`
 
@@ -576,7 +676,7 @@ Data type: `Optional[Simplib::IP]`
 
 Default value: ``undef``
 
-##### `ipv6_autoconf`
+##### <a name="ipv6_autoconf"></a>`ipv6_autoconf`
 
 Data type: `Optional[Boolean]`
 
@@ -584,7 +684,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `ipv6_control_radvd`
+##### <a name="ipv6_control_radvd"></a>`ipv6_control_radvd`
 
 Data type: `Optional[Boolean]`
 
@@ -592,7 +692,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `ipv6_mtu`
+##### <a name="ipv6_mtu"></a>`ipv6_mtu`
 
 Data type: `Optional[Integer]`
 
@@ -600,7 +700,7 @@ Data type: `Optional[Integer]`
 
 Default value: ``undef``
 
-##### `ipv6_privacy`
+##### <a name="ipv6_privacy"></a>`ipv6_privacy`
 
 Data type: `String[1]`
 
@@ -608,7 +708,7 @@ Data type: `String[1]`
 
 Default value: `'rfc3041'`
 
-##### `ipv6_radvd_pidfile`
+##### <a name="ipv6_radvd_pidfile"></a>`ipv6_radvd_pidfile`
 
 Data type: `Optional[String[1]]`
 
@@ -616,7 +716,7 @@ Data type: `Optional[String[1]]`
 
 Default value: ``undef``
 
-##### `ipv6_radvd_trigger_action`
+##### <a name="ipv6_radvd_trigger_action"></a>`ipv6_radvd_trigger_action`
 
 Data type: `Optional[String[1]]`
 
@@ -624,7 +724,7 @@ Data type: `Optional[String[1]]`
 
 Default value: ``undef``
 
-##### `ipv6_router`
+##### <a name="ipv6_router"></a>`ipv6_router`
 
 Data type: `Optional[Boolean]`
 
@@ -632,7 +732,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `ipv6addr`
+##### <a name="ipv6addr"></a>`ipv6addr`
 
 Data type: `Optional[Simplib::IP::V6]`
 
@@ -640,7 +740,7 @@ Data type: `Optional[Simplib::IP::V6]`
 
 Default value: ``undef``
 
-##### `ipv6addr_secondaries`
+##### <a name="ipv6addr_secondaries"></a>`ipv6addr_secondaries`
 
 Data type: `Optional[Array[Simplib::IP::V6]]`
 
@@ -648,7 +748,7 @@ Data type: `Optional[Array[Simplib::IP::V6]]`
 
 Default value: ``undef``
 
-##### `ipv6init`
+##### <a name="ipv6init"></a>`ipv6init`
 
 Data type: `Optional[Boolean]`
 
@@ -656,7 +756,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `ipv6to4_ipv4addr`
+##### <a name="ipv6to4_ipv4addr"></a>`ipv6to4_ipv4addr`
 
 Data type: `Optional[String[1]]`
 
@@ -664,7 +764,7 @@ Data type: `Optional[String[1]]`
 
 Default value: ``undef``
 
-##### `ipv6to4_mtu`
+##### <a name="ipv6to4_mtu"></a>`ipv6to4_mtu`
 
 Data type: `Optional[Integer]`
 
@@ -672,7 +772,7 @@ Data type: `Optional[Integer]`
 
 Default value: ``undef``
 
-##### `ipv6to4_relay`
+##### <a name="ipv6to4_relay"></a>`ipv6to4_relay`
 
 Data type: `Optional[String[1]]`
 
@@ -680,7 +780,7 @@ Data type: `Optional[String[1]]`
 
 Default value: ``undef``
 
-##### `ipv6to4_routing`
+##### <a name="ipv6to4_routing"></a>`ipv6to4_routing`
 
 Data type: `Optional[String[1]]`
 
@@ -688,7 +788,7 @@ Data type: `Optional[String[1]]`
 
 Default value: ``undef``
 
-##### `ipv6to4init`
+##### <a name="ipv6to4init"></a>`ipv6to4init`
 
 Data type: `Optional[Boolean]`
 
@@ -696,7 +796,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `isalias`
+##### <a name="isalias"></a>`isalias`
 
 Data type: `Optional[Boolean]`
 
@@ -704,7 +804,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `linkdelay`
+##### <a name="linkdelay"></a>`linkdelay`
 
 Data type: `Optional[Integer[1]]`
 
@@ -712,7 +812,7 @@ Data type: `Optional[Integer[1]]`
 
 Default value: ``undef``
 
-##### `macaddr`
+##### <a name="macaddr"></a>`macaddr`
 
 Data type: `Optional[Simplib::Macaddress]`
 
@@ -720,7 +820,7 @@ If you set this variable, it will override any setting for $hwaddr!
 
 Default value: ``undef``
 
-##### `master`
+##### <a name="master"></a>`master`
 
 Data type: `Optional[String[1]]`
 
@@ -728,7 +828,7 @@ Data type: `Optional[String[1]]`
 
 Default value: ``undef``
 
-##### `metric`
+##### <a name="metric"></a>`metric`
 
 Data type: `Optional[String[1]]`
 
@@ -736,7 +836,7 @@ Data type: `Optional[String[1]]`
 
 Default value: ``undef``
 
-##### `mtu`
+##### <a name="mtu"></a>`mtu`
 
 Data type: `Optional[Integer[1]]`
 
@@ -744,7 +844,7 @@ Data type: `Optional[Integer[1]]`
 
 Default value: ``undef``
 
-##### `net_type`
+##### <a name="net_type"></a>`net_type`
 
 Data type: `Optional[String[1]]`
 
@@ -752,7 +852,7 @@ Data type: `Optional[String[1]]`
 
 Default value: ``undef``
 
-##### `netmask`
+##### <a name="netmask"></a>`netmask`
 
 Data type: `Optional[Simplib::IP]`
 
@@ -760,7 +860,7 @@ Data type: `Optional[Simplib::IP]`
 
 Default value: ``undef``
 
-##### `network`
+##### <a name="network"></a>`network`
 
 Data type: `Optional[Simplib::IP]`
 
@@ -768,7 +868,7 @@ Data type: `Optional[Simplib::IP]`
 
 Default value: ``undef``
 
-##### `nm_controlled`
+##### <a name="nm_controlled"></a>`nm_controlled`
 
 Data type: `Boolean`
 
@@ -778,7 +878,7 @@ interface and control it via the NetworkManager tools.
 
 Default value: `pick(fact('simplib__networkmanager.enabled'), false)`
 
-##### `nozeroconf`
+##### <a name="nozeroconf"></a>`nozeroconf`
 
 Data type: `Optional[String[1]]`
 
@@ -786,7 +886,7 @@ Data type: `Optional[String[1]]`
 
 Default value: ``undef``
 
-##### `onboot`
+##### <a name="onboot"></a>`onboot`
 
 Data type: `Optional[Boolean]`
 
@@ -794,7 +894,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``true``
 
-##### `peerdns`
+##### <a name="peerdns"></a>`peerdns`
 
 Data type: `Optional[Boolean]`
 
@@ -802,7 +902,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `physdev`
+##### <a name="physdev"></a>`physdev`
 
 Data type: `Optional[String[1]]`
 
@@ -810,7 +910,7 @@ Data type: `Optional[String[1]]`
 
 Default value: ``undef``
 
-##### `persistent_dhclient`
+##### <a name="persistent_dhclient"></a>`persistent_dhclient`
 
 Data type: `Optional[Boolean]`
 
@@ -818,7 +918,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `slave`
+##### <a name="slave"></a>`slave`
 
 Data type: `Optional[Boolean]`
 
@@ -826,7 +926,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `srcaddr`
+##### <a name="srcaddr"></a>`srcaddr`
 
 Data type: `Optional[Simplib::IP]`
 
@@ -834,7 +934,7 @@ Data type: `Optional[Simplib::IP]`
 
 Default value: ``undef``
 
-##### `userctl`
+##### <a name="userctl"></a>`userctl`
 
 Data type: `Optional[Boolean]`
 
@@ -842,7 +942,7 @@ Data type: `Optional[Boolean]`
 
 Default value: ``undef``
 
-##### `vlan`
+##### <a name="vlan"></a>`vlan`
 
 Data type: `Boolean`
 
@@ -850,7 +950,7 @@ Data type: `Boolean`
 
 Default value: ``false``
 
-##### `vlan_name_type`
+##### <a name="vlan_name_type"></a>`vlan_name_type`
 
 Data type: `Optional[Network::VlanType]`
 
@@ -858,7 +958,7 @@ Data type: `Optional[Network::VlanType]`
 
 Default value: ``undef``
 
-##### `window`
+##### <a name="window"></a>`window`
 
 Data type: `Optional[Integer[1]]`
 
@@ -866,15 +966,17 @@ Data type: `Optional[Integer[1]]`
 
 Default value: ``undef``
 
-##### `auto_restart`
+##### <a name="auto_restart"></a>`auto_restart`
 
-Data type: `Boolean`
+Data type: `Optional[Boolean]`
 
 Restart the network if necessary due to a configuration change.
 
-Default value: ``true``
+* Will use the value from the main `network` class if not set.
 
-### `network::route`
+Default value: ``undef``
+
+### <a name="networkroute"></a>`network::route`
 
 Add a static route to an interface.
 
@@ -888,27 +990,32 @@ Note: At this time multiple static routes can only be added by injecting
 
 #### Parameters
 
-The following parameters are available in the `network::route` defined type.
+The following parameters are available in the `network::route` defined type:
 
-##### `interface`
+* [`interface`](#interface)
+* [`cidr_netmask`](#cidr_netmask)
+* [`next_hop`](#next_hop)
+* [`auto_restart`](#auto_restart)
+
+##### <a name="interface"></a>`interface`
 
 Data type: `String`
 
 
 
-##### `cidr_netmask`
+##### <a name="cidr_netmask"></a>`cidr_netmask`
 
 Data type: `String`
 
 
 
-##### `next_hop`
+##### <a name="next_hop"></a>`next_hop`
 
 Data type: `Simplib::IP`
 
 
 
-##### `auto_restart`
+##### <a name="auto_restart"></a>`auto_restart`
 
 Data type: `Boolean`
 
@@ -918,11 +1025,14 @@ Default value: ``true``
 
 ## Data types
 
-### `Network::BondMode`
+### <a name="networkbondmode"></a>`Network::BondMode`
 
 Valid bond modes for network interfaces
 
-Alias of `Variant[Integer[0,6], Enum[
+Alias of
+
+```puppet
+Variant[Integer[0,6], Enum[
     'balance-rr',
     'active-backup',
     'balance-xor',
@@ -930,23 +1040,36 @@ Alias of `Variant[Integer[0,6], Enum[
     '802.3ad',
     'balance-tlb',
     'balance-alb'
-  ]]`
+  ]]
+```
 
-### `Network::Eth::BootProto`
+### <a name="networkethbootproto"></a>`Network::Eth::BootProto`
 
 Valid ethernet boot protocols
 
-Alias of `Enum['none', 'static', 'bootp', 'dhcp']`
+Alias of
 
-### `Network::TransmitPolicy`
+```puppet
+Enum['none', 'static', 'bootp', 'dhcp']
+```
+
+### <a name="networktransmitpolicy"></a>`Network::TransmitPolicy`
 
 Valid network transmit policies
 
-Alias of `Enum['layer2', 'layer2+3', 'layer3+4']`
+Alias of
 
-### `Network::VlanType`
+```puppet
+Enum['layer2', 'layer2+3', 'layer3+4']
+```
+
+### <a name="networkvlantype"></a>`Network::VlanType`
 
 taken from http://lxr.free-electrons.com/source/net/8021q/vlan.c?v=2.6.32#L310
 
-Alias of `Enum['VLAN_NAME_TYPE_RAW_PLUS_VID', 'VLAN_NAME_TYPE_PLUS_VID_NO_PAD', 'VLAN_NAME_TYPE_RAW_PLUS_VID_NO_PAD', 'VLAN_NAME_TYPE_PLUS_VID']`
+Alias of
+
+```puppet
+Enum['VLAN_NAME_TYPE_RAW_PLUS_VID', 'VLAN_NAME_TYPE_PLUS_VID_NO_PAD', 'VLAN_NAME_TYPE_RAW_PLUS_VID_NO_PAD', 'VLAN_NAME_TYPE_PLUS_VID']
+```
 
