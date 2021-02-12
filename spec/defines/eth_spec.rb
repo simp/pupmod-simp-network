@@ -150,6 +150,36 @@ describe 'network::eth' do
           }
           it { is_expected.to create_file('/etc/sysconfig/network-scripts/ifcfg-everything_eth').with_content(expected) }
         end
+
+        context 'when auto_restart is overridden globally' do
+          let(:title) do
+            'auto_restart'
+          end
+
+          context 'when true' do
+            let(:pre_condition) do
+              <<~EOM
+              class { 'network':
+                auto_restart => true
+              }
+              EOM
+            end
+
+            it { is_expected.to create_exec("network_restart_#{title}").with_command(/sleep/) }
+          end
+
+          context 'when false' do
+            let(:pre_condition) do
+              <<~EOM
+              class { 'network':
+                auto_restart => false
+              }
+              EOM
+            end
+
+            it { is_expected.to create_exec("network_restart_#{title}").with_command(/true/) }
+          end
+        end
       end
     end
   end

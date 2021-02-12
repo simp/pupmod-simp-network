@@ -115,6 +115,8 @@
 # @param auto_restart
 #   Restart the network if necessary due to a configuration change.
 #
+#   * Will use the value from the main `network` class if not set.
+#
 # @author https://github.com/simp/pupmod-simp-network/graphs/contributors
 #
 define network::eth (
@@ -188,7 +190,7 @@ define network::eth (
   Boolean                           $vlan                             = false,
   Optional[Network::VlanType]       $vlan_name_type                   = undef,
   Optional[Integer[1]]              $window                           = undef,
-  Boolean                           $auto_restart                     = true
+  Optional[Boolean]                 $auto_restart                     = undef
 ) {
   include 'network'
 
@@ -282,11 +284,18 @@ define network::eth (
 
       unless defined('$_refreshonly') { $_refreshonly = true }
 
+      if $auto_restart {
+        $_auto_restart = $auto_restart
+      }
+      else {
+        $_auto_restart = $network::auto_restart
+      }
+
       # Only restart the interface you are managing
       # The sleep was added to make sure that the interface came back up if
       # it's coming up. If it took more than 10 seconds, something's probably
       # very wrong with your network.
-      if $auto_restart {
+      if $_auto_restart {
         if $nm_controlled {
           $_command_string = "/bin/nmcli connection down ifname ${name}; /bin/nmcli connection up ifname ${name} && wait && sleep 10"
         }

@@ -1,5 +1,7 @@
-* Thu Dec 31 2020 Trevor Vaughan <tvaughan@onyxpoint.com> - 6.2.1
+* Thu Feb 11 2021 Trevor Vaughan <tvaughan@onyxpoint.com> - 6.2.1
 - Fixed:
+  - Ensure that the network::eth define honors the network::auto_restart
+    parameter by default
   - Updated the network::eth define to use the modern facts to get IP addresses
     to prevent interface flapping
 
