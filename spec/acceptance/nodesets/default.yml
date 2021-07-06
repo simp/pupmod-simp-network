@@ -7,7 +7,7 @@
 -%>
 HOSTS:
   el7:
-    roles: # migrated from now-removed el6 node(s)
+    roles:
     - default
     platform: el-7-x86_64
     box: centos/7
@@ -15,7 +15,7 @@ HOSTS:
 
   el8:
     platform: el-8-x86_64
-    box: centos/8
+    box: generic/centos8
     hypervisor: <%= hypervisor %>
 
 CONFIG:
