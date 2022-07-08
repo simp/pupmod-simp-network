@@ -3,10 +3,12 @@
 # See /usr/share/doc/initscripts-<version>/sysconfig.txt for details of
 # each option.
 #
-# Note: At this time multiple static routes can only be added by injecting
-#       newlines into the cidr_netmask variable. See the following as an example:
-#
-#       cidr_netmask => "192.168.1.0/24 via 192.168.0.1\n192.168.2.0/24"
+# Routes should be defined as the following:
+# eth0-1.1.1.1:
+#   interface: eth0
+#   next-hop: 8.8.8.8
+#   cidr_netmask: 1.1.1.1/32
+#   auto_restart: true # <- default
 #
 # @param interface
 # @param cidr_netmask
@@ -41,7 +43,7 @@ define network::route (
   }
 
   $_command = $auto_restart ? {
-    true    => "/sbin/ifdown ${name} && /sbin/ifup ${name}; wait",
+    true    => "/sbin/ifdown ${interface} && /sbin/ifup ${interface}; wait",
     default => '/bin/true'
   }
 
