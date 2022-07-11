@@ -16,7 +16,7 @@
 ### Defined types
 
 * [`network::eth`](#networketh): This sets up a particular ethernet device config file.  See /usr/share/doc/initscripts-<version>/sysconfig.txt for details of each option.  F
-* [`network::route`](#networkroute): Add a static route to an interface.  See /usr/share/doc/initscripts-<version>/sysconfig.txt for details of each option.  Note: At this time m
+* [`network::route`](#networkroute): Add a static route to an interface.  See `/usr/share/doc/initscripts-*/sysconfig.txt` for details of each option.
 
 ### Data types
 
@@ -980,13 +980,36 @@ Default value: ``undef``
 
 Add a static route to an interface.
 
-See /usr/share/doc/initscripts-<version>/sysconfig.txt for details of
+See `/usr/share/doc/initscripts-*/sysconfig.txt` for details of
 each option.
 
-Note: At this time multiple static routes can only be added by injecting
-      newlines into the cidr_netmask variable. See the following as an example:
+#### Examples
 
-      cidr_netmask => "192.168.1.0/24 via 192.168.0.1\n192.168.2.0/24"
+##### Defining a static route (Hiera)
+
+```puppet
+eth0-1.1.1.1:
+  interface: eth0
+  next_hop: 8.8.8.8
+  cidr_netmask: 1.1.1.1/32
+  auto_restart: true # <- default
+```
+
+##### Defining multiple routes for the same interface (Puppet code)
+
+```puppet
+network::route{ 'eth1-first-static-route':
+  interface    => 'eth1',
+  cidr_netmask => "192.168.1.0/24',
+  next_hop     => '192.168.1.1,
+}
+
+network::route{ 'eth1-second-static-route':
+  interface    => 'eth1',
+  cidr_netmask => '192.168.3.0/24',
+  next_hop     => '192.168.3.1',
+}
+```
 
 #### Parameters
 
