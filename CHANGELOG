@@ -1,3 +1,6 @@
+* Fri Jul 08 2022 befischer-noris <108938973+befischer-noris@users.noreply.github.com> - 6.3.1
+- Add support for multiple static routes
+
 * Wed Jun 16 2021 Chris Tessmer <chris.tessmer@onyxpoint.com> - 6.3.0
 - Removed support for Puppet 5
 - Ensured support for Puppet 7 in requirements and stdlib
