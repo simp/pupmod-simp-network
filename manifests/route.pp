@@ -4,11 +4,12 @@
 # each option.
 #
 # Routes should be defined as the following:
-# eth0-1.1.1.1:
-#   interface: eth0
-#   next-hop: 8.8.8.8
-#   cidr_netmask: 1.1.1.1/32
-#   auto_restart: true # <- default
+# @example
+#   eth0-1.1.1.1:
+#     interface: eth0
+#     next_hop: 8.8.8.8
+#     cidr_netmask: 1.1.1.1/32
+#     auto_restart: true # <- default
 #
 # @param interface
 # @param cidr_netmask
