@@ -1,3 +1,6 @@
+* Sat Oct 15 2022 Trevor Vaughan <trevor@sicura.us> - 6.3.2
+- Version bump to correct the issue with the 6.3.1 tag
+
 * Fri Jul 08 2022 befischer-noris <108938973+befischer-noris@users.noreply.github.com> - 6.3.1
 - Add support for multiple static routes
 
