@@ -195,7 +195,7 @@ define network::eth (
   include 'network'
 
   if ($net_type == 'Bridge') or ($bridge =~ NotUndef) {
-    if ($facts['os']['name'] in ['RedHat','CentOS','OracleLinux']) and ($facts['os']['release']['major'] < '8') {
+    if ($facts['os']['name'] in ['RedHat','CentOS','OracleLinux','Rocky','AlmaLinux']) and ($facts['os']['release']['major'] < '8') {
       include 'network::eth::bridge_packages'
     }
   }
