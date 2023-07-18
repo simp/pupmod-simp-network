@@ -28,7 +28,7 @@
 class network::global (
   Optional[Simplib::IP] $gateway             = undef,
   Optional[String]      $gatewaydev          = undef,
-  Simplib::Hostname     $hostname            = $facts['fqdn'],
+  Simplib::Hostname     $hostname            = $facts['networking']['fqdn'],
   Optional[Boolean]     $ipv6_autoconf       = undef,
   Optional[Boolean]     $ipv6_autotunnel     = undef,
   Optional[String]      $ipv6_defaultdev     = undef,
