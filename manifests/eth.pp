@@ -180,7 +180,7 @@ define network::eth (
   Optional[Simplib::IP]             $network                          = undef,
   Boolean                           $nm_controlled                    = pick(fact('simplib__networkmanager.enabled'), false),
   Optional[String[1]]               $nozeroconf                       = undef,
-  Optional[Boolean]                 $onboot                           = true,
+  Boolean                           $onboot                           = true,
   Optional[Boolean]                 $peerdns                          = undef,
   Optional[String[1]]               $physdev                          = undef,
   Optional[Boolean]                 $persistent_dhclient              = undef,
@@ -274,7 +274,7 @@ define network::eth (
       }
 
       if $_iface_addr {
-        if ($facts['ipaddress'] =~ /^127.0.0.1$|[^\d|\.]+/) or ( (!($bootproto in ['dhcp','bootp'])) and ($_iface_addr != $ipaddr )) {
+        if ($facts['networking']['ip'] =~ /^127.0.0.1$|[^\d|\.]+/) or ( (!($bootproto in ['dhcp','bootp'])) and ($_iface_addr != $ipaddr )) {
           $_refreshonly = false
         }
       }
