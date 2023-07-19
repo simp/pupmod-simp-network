@@ -1,5 +1,13 @@
+* Mon Jul 19 2023 Chris Tessmer <chris.tessmer@onyxpoint.com> - 6.4.1
+- Fix EL8 `dhclient` flags in eth template:
+  - `-timeout ` (EL7) vs `--timeout` (EL8)
+  - `-R` (EL7) vs `--request-options` (EL8)
+
 * Mon Jul 17 2023 Chris Tessmer <chris.tessmer@onyxpoint.com> - 6.4.0
 - Add RockyLinux 8 support
+
+* Sat Oct 15 2022 Trevor Vaughan <trevor@sicura.us> - 6.3.3
+- Version bump to correct the issue with the 6.3.1 tag
 
 * Sat Oct 15 2022 Trevor Vaughan <trevor@sicura.us> - 6.3.2
 - Version bump to correct the issue with the 6.3.1 tag

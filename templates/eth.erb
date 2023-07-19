@@ -157,14 +157,18 @@
 
   t_dhclientargs = []
   unless @dhclient_request_option_list.nil?
-    t_dhclientargs << "-R #{@dhclient_request_option_list.join(' ')}"
+    if scope.call_function('versioncmp', [@operatingsystemmajrelease,'8']) < 0
+      t_dhclientargs << "-R #{@dhclient_request_option_list.join(' ')}"
+    else
+      t_dhclientargs << "--request-options #{@dhclient_request_option_list.join(' ')}"
+    end
   end
 
   unless @dhclient_timeout.nil?
-    if scope.call_function('versioncmp', [@operatingsystemmajrelease,'6']) < 0
-      t_dhclientargs << "-T #{@dhclient_timeout}"
-    else
+    if scope.call_function('versioncmp', [@operatingsystemmajrelease,'8']) < 0
       t_dhclientargs << "-timeout #{@dhclient_timeout}"
+    else
+      t_dhclientargs << "--timeout #{@dhclient_timeout}"
     end
   end
 
