@@ -258,5 +258,9 @@
   unless t_bonding_options.empty?
     eth_opts << "BONDING_OPTS='#{t_bonding_options.join(' ')}'"
   end
+
+  unless @autoconnect_slaves.nil?
+    eth_opts << "AUTOCONNECT_SLAVES=#{bool_to_yesno[@autoconnect_slaves]}"
+  end
 -%>
 <%= eth_opts.join("\n") %>

@@ -29,6 +29,7 @@
 #   ignored.
 #
 # @param arp
+# @param autoconnect_slaves
 # @param bond_arp_interval
 # @param bond_arp_ip_target
 # @param bond_downdelay
@@ -121,6 +122,7 @@
 #
 define network::eth (
   Optional[Boolean]                 $arp                              = undef,
+  Optional[Boolean]                 $autoconnect_slaves               = undef,
   Boolean                           $auto_discover_mac                = true,
   Boolean                           $bonding                          = false,
   Optional[Integer]                 $bond_arp_interval                = undef,
