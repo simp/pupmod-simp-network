@@ -323,6 +323,7 @@ The following parameters are available in the `network::eth` defined type:
 * [`auto_discover_mac`](#-network--eth--auto_discover_mac)
 * [`bonding`](#-network--eth--bonding)
 * [`arp`](#-network--eth--arp)
+* [`autoconnect_slaves`](#-network--eth--autoconnect_slaves)
 * [`bond_arp_interval`](#-network--eth--bond_arp_interval)
 * [`bond_arp_ip_target`](#-network--eth--bond_arp_ip_target)
 * [`bond_downdelay`](#-network--eth--bond_downdelay)
@@ -418,6 +419,14 @@ ignored.
 Default value: `false`
 
 ##### <a name="-network--eth--arp"></a>`arp`
+
+Data type: `Optional[Boolean]`
+
+
+
+Default value: `undef`
+
+##### <a name="-network--eth--autoconnect_slaves"></a>`autoconnect_slaves`
 
 Data type: `Optional[Boolean]`
 
