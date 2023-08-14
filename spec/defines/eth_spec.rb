@@ -69,6 +69,7 @@ describe 'network::eth' do
           let(:title) { 'everything_eth' }
           let(:params) {{
             :arp                              => true,
+            :autoconnect_slaves               => true,
             :auto_discover_mac                => true,
             :bonding                          => true,
             :bond_arp_interval                => 5,

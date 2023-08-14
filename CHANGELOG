@@ -1,3 +1,6 @@
+* Sat Aug 12 2023 Daniel Castro <10415785+castrov@users.noreply.github.com> - 6.4.2
+- Add autoconnect_slaves parameter
+
 * Wed Jul 19 2023 Chris Tessmer <chris.tessmer@onyxpoint.com> - 6.4.1
 - Fix EL8 `dhclient` flags in eth template:
   - `-timeout ` (EL7) vs `--timeout` (EL8)
