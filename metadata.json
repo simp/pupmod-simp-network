@@ -1,6 +1,6 @@
 {
   "name": "simp-network",
-  "version": "6.4.2",
+  "version": "6.5.0",
   "author": "SIMP Team",
   "summary": "manages host networking",
   "license": "Apache-2.0",
@@ -50,6 +50,12 @@
     },
     {
       "operatingsystem": "Rocky",
+      "operatingsystemrelease": [
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "AlmaLinux",
       "operatingsystemrelease": [
         "8"
       ]
