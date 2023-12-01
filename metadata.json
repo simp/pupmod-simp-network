@@ -1,6 +1,6 @@
 {
   "name": "simp-network",
-  "version": "6.4.2",
+  "version": "6.6.0",
   "author": "SIMP Team",
   "summary": "manages host networking",
   "license": "Apache-2.0",
@@ -15,15 +15,15 @@
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 8.0.0 < 9.0.0"
+      "version_requirement": ">= 8.0.0 < 10.0.0"
     },
     {
       "name": "puppetlabs/concat",
-      "version_requirement": ">= 6.4.0 < 8.0.0"
+      "version_requirement": ">= 6.4.0 < 10.0.0"
     },
     {
       "name": "simp-simplib",
-      "version_requirement": ">= 3.15.0 < 5.0.0"
+      "version_requirement": ">= 4.9.0 < 5.0.0"
     }
   ],
   "operatingsystem_support": [
@@ -53,12 +53,18 @@
       "operatingsystemrelease": [
         "8"
       ]
+    },
+    {
+      "operatingsystem": "AlmaLinux",
+      "operatingsystemrelease": [
+        "8"
+      ]
     }
   ],
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 6.22.1 < 8.0.0"
+      "version_requirement": ">= 7.0.0 < 9.0.0"
     }
   ]
 }
