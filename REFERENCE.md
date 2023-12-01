@@ -297,13 +297,13 @@ explicitly configured otherwise in specific `network::eth` declarations).
 
 The following parameters are available in the `network::service::network_manager` class:
 
-* [`puppet_agent_installed`](#-network--service--manage_network_manager--puppet_agent_installed)
+* [`puppet_agent_installed`](#-network--service--network_manager--puppet_agent_installed)
 
-##### <a name="-network--service--manage_network_manager--puppet_agent_installed"></a>`puppet_agent_installed`
+##### <a name="-network--service--network_manager--puppet_agent_installed"></a>`puppet_agent_installed`
 
 Data type: `Boolean`
 
-Define if puppet agent is installed and running as service in background.
+If puppet agent is running as service set this to true
 
 Default value: `false`
 
