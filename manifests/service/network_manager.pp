@@ -5,9 +5,14 @@
 # and potentially disrupt its other configurations and report (unless
 # explicitly configured otherwise in specific `network::eth` declarations).
 #
+# @param puppet_agent_installed
+#   If puppet agent is running as service set this to true
+#
 # @author https://github.com/simp/pupmod-simp-network/graphs/contributors
 #
-class network::service::network_manager {
+class network::service::network_manager (
+  Boolean $puppet_agent_installed = false
+) {
 
   assert_private()
 
@@ -25,9 +30,15 @@ class network::service::network_manager {
   # of delayed connection-specific nmcli commands.
   $_net_restart = 'nmcli con reload && nmcli networking off; sleep 1; nmcli networking on'
 
+  if $puppet_agent_installed {
+    $num_puppet_processes = 1
+  } else {
+    $num_puppet_processes = 0
+  }
+
   $_restart_cmd = @("CMD")
     #!/bin/sh
-    while [ `ps h -fC puppet | grep -ce "puppet \\(agent\\|apply\\)"` -gt 0 ]; do
+    while [ `ps h -fC puppet | grep -ce "puppet \\(agent\\|apply\\)"` -gt ${num_puppet_processes} ]; do
       sleep 5
     done
 

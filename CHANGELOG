@@ -1,3 +1,6 @@
+* Thu Nov 30 2023 castrov <10415785+castrov@users.noreply.github.com> - 6.7.0
+- Add new parameter `network::service::network_manager::puppet_agent_installed`
+
 * Wed Oct 11 2023 Steven Pritchard <steve@sicura.us> - 6.6.0
 - [puppetsync] Updates for Puppet 8
   - These updates may include the following:

@@ -293,6 +293,20 @@ This ensures that network changes aren't applied during a Puppet agent run
 and potentially disrupt its other configurations and report (unless
 explicitly configured otherwise in specific `network::eth` declarations).
 
+#### Parameters
+
+The following parameters are available in the `network::service::network_manager` class:
+
+* [`puppet_agent_installed`](#-network--service--network_manager--puppet_agent_installed)
+
+##### <a name="-network--service--network_manager--puppet_agent_installed"></a>`puppet_agent_installed`
+
+Data type: `Boolean`
+
+If puppet agent is running as service set this to true
+
+Default value: `false`
+
 ## Defined types
 
 ### <a name="network--eth"></a>`network::eth`
