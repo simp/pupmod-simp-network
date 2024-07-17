@@ -1,3 +1,6 @@
+* Mon Oct 23 2023 Steven Pritchard <steve@sicura.us> - 6.8.0
+- Add EL9 support
+
 * Thu Nov 30 2023 castrov <10415785+castrov@users.noreply.github.com> - 6.7.0
 - Add new parameter `network::service::network_manager::puppet_agent_installed`
 
