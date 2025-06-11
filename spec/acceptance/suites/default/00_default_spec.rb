@@ -3,6 +3,7 @@ require 'spec_helper_acceptance'
 test_name 'network::eth class'
 
 describe 'network::eth class' do
+  # rubocop:disable RSpec/InstanceVariable
   let(:manifest) do
     <<-MANIFEST
     include 'network::global'
@@ -30,8 +31,9 @@ describe 'network::eth class' do
     MANIFEST
   end
 
-  $test_suts = 0
-  $nm_suts   = 0
+  @test_suts = 0
+  @nm_suts   = 0
+
   hosts.each do |host|
     [true, false].each do |enable_nm|
       legacy_network_available = (on(host, 'service network status', accept_all_exit_codes: true).exit_code == 0)
@@ -41,8 +43,8 @@ describe 'network::eth class' do
       nm_fact = on(host, 'which nmcli', accept_all_exit_codes: true)
       nm_enabled = enable_nm && (nm_fact.exit_code == 0) && !nm_fact.stdout.strip.empty?
 
-      $test_suts += 1
-      $nm_suts   += 1 if nm_enabled
+      @test_suts += 1
+      @nm_suts   += 1 if nm_enabled
 
       context "on #{host}#{nm_enabled ? ' (using Network Manager)' : ' (using network)'})" do
         let(:nm_controlled) { nm_enabled }
@@ -86,9 +88,10 @@ describe 'network::eth class' do
   end
 
   after :all do
-    expect($test_suts).to be > 0
-    expect($nm_suts).to be > 0, 'No SUTs tested with NetworkManager'
+    expect(@test_suts).to be > 0
+    expect(@nm_suts).to be > 0, 'No SUTs tested with NetworkManager'
     # Is this a good idea?
-    ### expect($nm_suts).to be < $test_suts, 'No SUTs tested with network (without NetworkManager)'
+    ### expect(@nm_suts).to be < @test_suts, 'No SUTs tested with network (without NetworkManager)'
   end
+  # rubocop:enable RSpec/InstanceVariable
 end
